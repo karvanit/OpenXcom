@@ -648,6 +648,9 @@
     <ClCompile Include="Menu\SavedGameState.cpp">
       <Filter>Menu</Filter>
     </ClCompile>
+    <ClCompile Include="Geoscape\AlienAI.cpp">
+      <Filter>Geoscape</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h" />
@@ -1297,6 +1300,18 @@
     </ClInclude>
     <ClInclude Include="Menu\SavedGameState.h">
       <Filter>Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Geoscape\AlienAI.h">
+      <Filter>Geoscape</Filter>
+    </ClInclude>
+    <ClInclude Include="Geoscape\GeoEvent.h">
+      <Filter>Geoscape</Filter>
+    </ClInclude>
+    <ClInclude Include="Geoscape\GeoEventHandler.h">
+      <Filter>Geoscape</Filter>
+    </ClInclude>
+    <ClInclude Include="Geoscape\GeoEvents.h">
+      <Filter>Geoscape</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

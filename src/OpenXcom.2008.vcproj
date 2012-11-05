@@ -1474,6 +1474,26 @@
 				RelativePath=".\Geoscape\UfoLostState.h"
 				>
 			</File>
+			<File
+				RelativePath=".\Geoscape\AlienAI.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Geoscape\AlienAI.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Geoscape\GeoEvent.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Geoscape\GeoEventHandler.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Geoscape\GeoEvents.h"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Ufopaedia"

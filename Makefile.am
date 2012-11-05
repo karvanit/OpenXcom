@@ -499,6 +499,11 @@ openxcom_SOURCES = \
 	src/Ufopaedia/UfopaediaSelectState.h \
 	src/Ufopaedia/UfopaediaStartState.cpp \
 	src/Ufopaedia/UfopaediaStartState.h
+	src/Geoscape/AlienAI.cpp
+	src/Geoscape/AlienAI.h
+	src/Geoscape/GeoEvent.h
+	src/Geoscape/GeoEventHandler.h
+	src/Geoscape/GeoEvents.h
 
 EXTRA_DIST = autogen.sh src/OpenXcom.* \
 	src/CMakeLists.txt docs/CMakeLists.txt CMakeLists.txt cmake/* \

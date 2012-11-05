@@ -78,6 +78,8 @@
 #include "../Ruleset/RuleRegion.h"
 #include "../Ruleset/City.h"
 #include "AlienTerrorState.h"
+#include "AlienAI.h"
+#include "GeoEvents.h"
 
 namespace OpenXcom
 {
@@ -281,6 +283,7 @@ GeoscapeState::GeoscapeState(Game *game) : State(game), _music(false)
 
 	_timer->onTimer((StateHandler)&GeoscapeState::timeAdvance);
 
+	_ai = new AlienAI(game, this);
 	timeDisplay();
 }
 
@@ -290,6 +293,9 @@ GeoscapeState::GeoscapeState(Game *game) : State(game), _music(false)
 GeoscapeState::~GeoscapeState()
 {
 	delete _timer;
+	delete _ai;
+	// No events should exist at this time.
+	assert(_geoscapeEvents.empty());
 }
 
 /**
@@ -622,39 +628,7 @@ void GeoscapeState::time10Minutes()
  */
 void GeoscapeState::time30Minutes()
 {
-	// Spawn UFOs
-	std::vector<std::string> ufos = _game->getRuleset()->getUfosList();
-	int chance = RNG::generate(1, 100);
-	if (chance <= 40)
-	{
-		// Makes smallest UFO the more likely, biggest UFO the least likely
-		// eg. 0 - 0..6, 1 - 6..10, etc.
-		unsigned int range = RNG::generate(1, (ufos.size()*(ufos.size()+1))/2);
-		unsigned int type = 0;
-		for (unsigned int i = 0, j = 1; i < ufos.size(); ++i, j += ufos.size()-i)
-		{
-			if (j <= range && range < j + ufos.size()-i)
-			{
-				type = i;
-				break;
-			}
-		}
-		Ufo *u = new Ufo(_game->getRuleset()->getUfo(ufos[type]));
-		u->setLongitude(RNG::generate(0.0, 2*M_PI));
-		u->setLatitude(RNG::generate(-M_PI_2, M_PI_2));
-		Waypoint *w = new Waypoint();
-		w->setLongitude(RNG::generate(0.0, 2*M_PI));
-		w->setLatitude(RNG::generate(-M_PI_2, M_PI_2));
-		u->setDestination(w);
-		u->setSpeed(RNG::generate(u->getRules()->getMaxSpeed() / 4, u->getRules()->getMaxSpeed() / 2));
-		int race = RNG::generate(1, 2);
-		if (race == 1)
-			u->setAlienRace("STR_SECTOID");
-		else
-			u->setAlienRace("STR_FLOATER");
-		_game->getSavedGame()->getUfos()->push_back(u);
-	}
-
+	post(new Every30Minutes());
 	// Handle craft maintenance
 	for (std::vector<Base*>::iterator i = _game->getSavedGame()->getBases()->begin(); i != _game->getSavedGame()->getBases()->end(); ++i)
 	{
@@ -747,6 +721,7 @@ void GeoscapeState::time30Minutes()
  */
 void GeoscapeState::time1Hour()
 {
+	post(new Every30Minutes());
 	// Handle craft maintenance
 	for (std::vector<Base*>::iterator i = _game->getSavedGame()->getBases()->begin(); i != _game->getSavedGame()->getBases()->end(); ++i)
 	{
@@ -835,34 +810,6 @@ void GeoscapeState::time1Hour()
  */
 void GeoscapeState::time1Day()
 {
-	// Spawn terror sites
-	int chance = RNG::generate(1, 20);
-	if (chance <= 2)
-	{
-		// Pick a city
-		RuleRegion* region = 0;
-		std::vector<std::string> regions = _game->getRuleset()->getRegionsList();
-		do
-		{
-			region = _game->getRuleset()->getRegion(regions[RNG::generate(0, regions.size()-1)]);
-		}
-		while (region->getCities()->empty());
-		City *city = (*region->getCities())[RNG::generate(0, region->getCities()->size()-1)];
-
-		TerrorSite *t = new TerrorSite();
-		t->setLongitude(city->getLongitude());
-		t->setLatitude(city->getLatitude());
-		t->setId(_game->getSavedGame()->getId("STR_TERROR_SITE"));
-		t->setHoursActive(24 + RNG::generate(0, 24));
-		int race = RNG::generate(1, 2);
-		if (race == 1)
-			t->setAlienRace("STR_SECTOID");
-		else
-			t->setAlienRace("STR_FLOATER");
-		_game->getSavedGame()->getTerrorSites()->push_back(t);
-		_game->pushState(new AlienTerrorState(_game, city, this));
-	}
-
 	for (std::vector<Base*>::iterator i = _game->getSavedGame()->getBases()->begin(); i != _game->getSavedGame()->getBases()->end(); ++i)
 	{
 		// Handle facility construction
@@ -926,6 +873,7 @@ void GeoscapeState::time1Month()
 	timerReset();
 	_game->getSavedGame()->monthlyFunding();
 	_game->pushState(new MonthlyReportState(_game));
+	post(new EveryMonth());
 }
 
 /**
@@ -1138,6 +1086,28 @@ void GeoscapeState::btnZoomOutLeftClick(Action *action)
 void GeoscapeState::btnZoomOutRightClick(Action *action)
 {
 	_globe->zoomMin();
+}
+
+/**
+ * Accept a GeoEvent for further processing.
+ * After calling this, GeoscapeState is responsible for the lifetime of @a event.
+ * @param event Pointer to the event.
+ */
+void GeoscapeState::post(GeoEventBase *event)
+{
+	_geoscapeEvents.push(event);
+	if (_geoscapeEvents.size() > 1)
+	{
+		// Already handling an earlier event.
+		return;
+	}
+	// Process the event, and all events it may have generated.
+	while (!_geoscapeEvents.empty())
+	{
+		_geoscapeEvents.front()->inform(_ai);
+		delete _geoscapeEvents.front();
+		_geoscapeEvents.pop();
+	}
 }
 
 }

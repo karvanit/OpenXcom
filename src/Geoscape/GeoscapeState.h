@@ -21,6 +21,7 @@
 
 #include "../Engine/State.h"
 #include <vector>
+#include <queue>
 
 namespace OpenXcom
 {
@@ -31,6 +32,8 @@ class ImageButton;
 class InteractiveSurface;
 class Text;
 class Timer;
+class GeoEventBase;
+class AlienAI;
 
 /**
  * Geoscape screen which shows an overview of
@@ -49,6 +52,8 @@ private:
 	Timer *_timer;
 	bool _music;
 	Text *_txtDebug;
+	AlienAI *_ai;
+	std::queue<GeoEventBase*> _geoscapeEvents;
 public:
 	/// Creates the Geoscape state.
 	GeoscapeState(Game *game);
@@ -120,6 +125,8 @@ public:
 	void btnZoomOutLeftClick(Action *action);
 	/// Handler for right-clicking the Zoom Out icon.
 	void btnZoomOutRightClick(Action *action);
+	/// Accept a GeoEvent for further processing.
+	void post(GeoEventBase *event);
 };
 
 }

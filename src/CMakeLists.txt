@@ -264,6 +264,11 @@ set ( geoscape_src
   Geoscape/AlienTerrorState.cpp
   Geoscape/NewPossibleManufactureState.h
   Geoscape/NewPossibleManufactureState.cpp
+  Geoscape/AlienAI.cpp
+  Geoscape/AlienAI.h
+  Geoscape/GeoEvent.h
+  Geoscape/GeoEventHandler.h
+  Geoscape/GeoEvents.h
 )
 
 set ( interface_src
