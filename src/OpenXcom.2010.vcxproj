@@ -412,6 +412,7 @@
     <ClCompile Include="Geoscape\AlienAI.cpp" />
     <ClCompile Include="Savegame\WeightedOptions.cpp" />
     <ClCompile Include="Savegame\AlienStrategy.cpp" />
+    <ClCompile Include="Ruleset\RuleAlienMission.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Basescape\BaseInfoState.h" />
@@ -638,6 +639,7 @@
     <ClInclude Include="Geoscape\GeoEvents.h" />
     <ClInclude Include="Savegame\WeightedOptions.h" />
     <ClInclude Include="Savegame\AlienStrategy.h" />
+    <ClInclude Include="Ruleset\RuleAlienMission.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="OpenXcom.rc" />

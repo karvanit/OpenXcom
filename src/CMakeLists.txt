@@ -377,6 +377,8 @@ set ( ruleset_src
   Ruleset/AlienRace.cpp
   Ruleset/Unit.h
   Ruleset/Unit.cpp
+  Ruleset/RuleAlienMission.cpp
+  Ruleset/RuleAlienMission.h
 )
 
 set ( savegame_src

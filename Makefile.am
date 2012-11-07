@@ -508,6 +508,8 @@ openxcom_SOURCES = \
 	src/Savegame/WeightedOptions.h
 	src/Savegame/AlienStrategy.cpp
 	src/Savegame/AlienStrategy.h
+	src/Ruleset/RuleAlienMission.cpp
+	src/Ruleset/RuleAlienMission.h
 
 EXTRA_DIST = autogen.sh src/OpenXcom.* \
 	src/CMakeLists.txt docs/CMakeLists.txt CMakeLists.txt cmake/* \

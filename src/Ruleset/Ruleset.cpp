@@ -48,6 +48,7 @@
 #include "../Savegame/Craft.h"
 #include "../Ufopaedia/Ufopaedia.h"
 #include "../Savegame/AlienStrategy.h"
+#include "RuleAlienMission.h"
 
 namespace OpenXcom
 {
@@ -147,6 +148,10 @@ Ruleset::~Ruleset()
 		delete i->second;
 	}
 	for (std::map<std::string, RuleManufacture *>::const_iterator i = _manufacture.begin (); i != _manufacture.end (); ++i)
+	{
+		delete i->second;
+	}
+	for (std::map<std::string, RuleAlienMission *>::const_iterator i = _alienMissions.begin (); i != _alienMissions.end (); ++i)
 	{
 		delete i->second;
 	}
@@ -488,6 +493,25 @@ void Ruleset::load(const std::string &filename)
 				rule->load(*j);
 			}
 		}
+		else if (key == "alienMissions")
+		{
+			for (YAML::Iterator j = i.second().begin(); j != i.second().end(); ++j)
+			{
+				std::string type;
+				(*j)["type"] >> type;
+				if (_alienMissions.find(type) != _alienMissions.end())
+				{
+					*j >> *_alienMissions[type];
+				}
+				else
+				{
+					std::auto_ptr<RuleAlienMission> rule(new RuleAlienMission());
+					*j >> *rule;
+					_alienMissions[type] = rule.release();
+					_alienMissionsIndex.push_back(type);
+				}
+			}
+		}
 		else if (key == "ufopaedia")
 		{
 			for (YAML::Iterator j = i.second().begin(); j != i.second().end(); ++j)
@@ -678,6 +702,13 @@ void Ruleset::save(const std::string &filename) const
 	for (std::map<std::string, RuleManufacture*>::const_iterator i = _manufacture.begin(); i != _manufacture.end(); ++i)
 	{
 		i->second->save(out);
+	}
+	out << YAML::EndSeq;
+	out << YAML::Key << "alienMissions" << YAML::Value;
+	out << YAML::BeginSeq;
+	for (std::map<std::string, RuleAlienMission*>::const_iterator i = _alienMissions.begin(); i != _alienMissions.end(); ++i)
+	{
+		out << *i->second;
 	}
 	out << YAML::EndSeq;
 	out << YAML::Key << "ufopaedia" << YAML::Value;
@@ -1138,6 +1169,25 @@ RuleManufacture *Ruleset::getManufacture (const std::string &id) const
 std::vector<std::string> Ruleset::getManufactureList () const
 {
 	return _manufactureIndex;
+}
+
+/**
+ * Returns the rules for the specified alien mission.
+ * @param id Alien mission type.
+ * @return Rules for the alien mission.
+ */
+RuleAlienMission *Ruleset::getAlienMission(const std::string &id) const
+{
+	return _alienMissions.find(id)->second;
+}
+
+/**
+ * Returns the list of manufacture projects.
+ * @return The list of manufacture projects.
+ */
+const std::vector<std::string> &Ruleset::getAlienMissionList() const
+{
+	return _alienMissionsIndex;
 }
 
 }
