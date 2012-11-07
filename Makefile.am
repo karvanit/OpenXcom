@@ -504,6 +504,10 @@ openxcom_SOURCES = \
 	src/Geoscape/GeoEvent.h
 	src/Geoscape/GeoEventHandler.h
 	src/Geoscape/GeoEvents.h
+	src/Savegame/WeightedOptions.cpp
+	src/Savegame/WeightedOptions.h
+	src/Savegame/AlienStrategy.cpp
+	src/Savegame/AlienStrategy.h
 
 EXTRA_DIST = autogen.sh src/OpenXcom.* \
 	src/CMakeLists.txt docs/CMakeLists.txt CMakeLists.txt cmake/* \

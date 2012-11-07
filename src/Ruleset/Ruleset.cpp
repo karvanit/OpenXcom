@@ -47,6 +47,7 @@
 #include "../Savegame/Soldier.h"
 #include "../Savegame/Craft.h"
 #include "../Ufopaedia/Ufopaedia.h"
+#include "../Savegame/AlienStrategy.h"
 
 namespace OpenXcom
 {
@@ -542,6 +543,10 @@ void Ruleset::load(const std::string &filename)
 		{
 			i.second() >> _timePersonnel;
 		}
+		else if (key == "startingStrategy")
+		{
+			_startingStrategy = i.second().Clone();
+		}
 	}
 
 	fin.close();
@@ -750,6 +755,8 @@ SavedGame *Ruleset::newSave() const
 	}
 
 	save->getBases()->push_back(base);
+	// Setup alien strategy
+	save->getAlienStrategy().load(this, *_startingStrategy);
 
 	return save;
 }

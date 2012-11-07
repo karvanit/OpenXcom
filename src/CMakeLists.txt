@@ -432,6 +432,10 @@ set ( savegame_src
   Savegame/TerrorSite.cpp
   Savegame/Vehicle.h
   Savegame/Vehicle.cpp
+  Savegame/WeightedOptions.cpp
+  Savegame/WeightedOptions.h
+  Savegame/AlienStrategy.cpp
+  Savegame/AlienStrategy.h
 )
 
 set ( ufopedia_src

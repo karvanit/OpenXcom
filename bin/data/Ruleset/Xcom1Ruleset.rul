@@ -5503,3 +5503,106 @@ costSoldier: 20000
 costEngineer: 25000
 costScientist: 30000
 timePersonnel: 72
+startingStrategy:
+  regions:
+    STR_NORTH_AMERICA: 18
+    STR_ARCTIC: 4
+    STR_ANTARCTICA: 4
+    STR_SOUTH_AMERICA: 10
+    STR_EUROPE: 16
+    STR_NORTH_AFRICA: 12
+    STR_SOUTH_AFRICA: 8
+    STR_CENTRAL_ASIA: 12
+    STR_SOUTH_EAST_ASIA: 15
+    STR_SIBERIA: 10
+    STR_AUSTRALASIA: 10
+    STR_PACIFIC: 5
+    STR_NORTH_ATLANTIC: 5
+    STR_SOUTH_ATLANTIC: 5
+    STR_INDIAN_OCEAN: 5
+  possibleMissions:
+    - region: STR_NORTH_AMERICA
+      missions:
+        STR_ALIEN_RESEARCH: 14
+        STR_ALIEN_HARVEST: 17
+        STR_ALIEN_ABDUCTION: 20
+        STR_ALIEN_INFILTRATION: 20
+        STR_ALIEN_BASE: 20
+    - region: STR_ARCTIC
+      missions:
+        STR_ALIEN_RESEARCH: 25
+        STR_ALIEN_BASE: 35
+    - region: STR_ANTARCTICA
+      missions:
+        STR_ALIEN_RESEARCH: 25
+        STR_ALIEN_BASE: 35
+    - region: STR_SOUTH_AMERICA
+      missions:
+        STR_ALIEN_RESEARCH: 10
+        STR_ALIEN_HARVEST: 24
+        STR_ALIEN_ABDUCTION: 12
+        STR_ALIEN_INFILTRATION: 18
+        STR_ALIEN_BASE: 22
+    - region: STR_EUROPE
+      missions:
+        STR_ALIEN_RESEARCH: 10
+        STR_ALIEN_HARVEST: 10
+        STR_ALIEN_ABDUCTION: 15
+        STR_ALIEN_INFILTRATION: 20
+        STR_ALIEN_BASE: 6
+    - region: STR_NORTH_AFRICA
+      missions:
+        STR_ALIEN_RESEARCH: 8
+        STR_ALIEN_HARVEST: 8
+        STR_ALIEN_ABDUCTION: 8
+        STR_ALIEN_INFILTRATION: 8
+        STR_ALIEN_BASE: 19
+    - region: STR_SOUTH_AFRICA
+      missions:
+        STR_ALIEN_RESEARCH: 7
+        STR_ALIEN_HARVEST: 8
+        STR_ALIEN_ABDUCTION: 8
+        STR_ALIEN_INFILTRATION: 8
+        STR_ALIEN_BASE: 9
+    - region: STR_CENTRAL_ASIA
+      missions:
+        STR_ALIEN_RESEARCH: 5
+        STR_ALIEN_HARVEST: 5
+        STR_ALIEN_ABDUCTION: 6
+        STR_ALIEN_INFILTRATION: 10
+        STR_ALIEN_BASE: 8
+    - region: STR_SOUTH_EAST_ASIA
+      missions:
+        STR_ALIEN_RESEARCH: 8
+        STR_ALIEN_HARVEST: 13
+        STR_ALIEN_ABDUCTION: 21
+        STR_ALIEN_INFILTRATION: 13
+        STR_ALIEN_BASE: 8
+    - region: STR_SIBERIA
+      missions:
+        STR_ALIEN_RESEARCH: 6
+        STR_ALIEN_ABDUCTION: 4
+        STR_ALIEN_BASE: 9
+    - region: STR_AUSTRALASIA
+      missions:
+        STR_ALIEN_RESEARCH: 15
+        STR_ALIEN_HARVEST: 11
+        STR_ALIEN_ABDUCTION: 4
+        STR_ALIEN_INFILTRATION: 8
+        STR_ALIEN_BASE: 16
+    - region: STR_PACIFIC
+      missions:
+        STR_ALIEN_RESEARCH: 15
+        STR_ALIEN_BASE: 27
+    - region: STR_NORTH_ATLANTIC
+      missions:
+        STR_ALIEN_RESEARCH: 15
+        STR_ALIEN_BASE: 27
+    - region: STR_SOUTH_ATLANTIC
+      missions:
+        STR_ALIEN_RESEARCH: 15
+        STR_ALIEN_BASE: 27
+    - region: STR_INDIAN_OCEAN
+      missions:
+        STR_ALIEN_RESEARCH: 15
+        STR_ALIEN_BASE: 27

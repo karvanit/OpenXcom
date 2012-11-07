@@ -79,6 +79,7 @@ protected:
 	std::map<std::string, RuleManufacture *> _manufacture;
 	int _costSoldier, _costEngineer, _costScientist, _timePersonnel;
 	std::auto_ptr<YAML::Node> _startingBase;
+	std::auto_ptr<YAML::Node> _startingStrategy;
 	std::vector<std::string> _countriesIndex, _regionsIndex, _facilitiesIndex, _craftsIndex, _craftWeaponsIndex, _itemsIndex, _ufosIndex;
 	std::vector<std::string> _aliensIndex, _deploymentsIndex, _armorsIndex, _ufopaediaIndex, _researchIndex, _manufactureIndex;
 public:
