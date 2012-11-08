@@ -16,35 +16,40 @@
  * You should have received a copy of the GNU General Public License
  * along with OpenXcom.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef OPENXCOM_ALIENAI_H
-#define OPENXCOM_ALIENAI_H
+#ifndef OPENXCOM_ALIENBASESTATE_H
+#define OPENXCOM_ALIENBASESTATE_H
 
-#include "GeoEventHandler.h"
+#include "../Engine/State.h"
 
 namespace OpenXcom
 {
 
-class Game;
+class Region;
+class TextButton;
+class Window;
+class Text;
 class GeoscapeState;
+class AlienBase;
 
 /**
- * This class handles the Alien side's actions.
- * It reacts to events happening in the Geoscape.
+ * Displays info on a terror site.
  */
-class AlienAI: public GeoEventHandler
+class AlienBaseState : public State
 {
+private:
+	Region *_region;
+	GeoscapeState *_state;
+	AlienBase *_base;
+	TextButton *_btnOk;
+	Window *_window;
+	Text *_txtTitle;
 public:
-	/// Create a new AlienAI.
-	AlienAI(Game *game, GeoscapeState *parent);
-
-protected:
-	void handle(const Every30Minutes &);
-	void handle(const EveryMonth &);
-	void SpawnBase(double lon, double lat);
-	/// Access to game data and rules.
-	Game &_game;
-	/// Access to parent state.
-	GeoscapeState &_parent;
+	/// Creates the Ufo Detected state.
+	AlienBaseState(Game *game, AlienBase *base, GeoscapeState *state);
+	/// Cleans up the Ufo Detected state.
+	~AlienBaseState();
+	/// Handler for clicking the OK button.
+	void btnOkClick(Action *action);
 };
 
 }

@@ -148,6 +148,8 @@ public:
 	void keyboardPress(Action *action, State *state);
 	/// Get the polygons texture and shade at the given point.
 	void getPolygonTextureAndShade(double lon, double lat, int *texture, int *shade);
+	/// Checks if a target is near a point.
+	bool targetNearPolar(Target* target, double x, double y, int radius) const;
 
 };
 

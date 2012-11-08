@@ -55,6 +55,7 @@
 #include "../Savegame/Vehicle.h"
 #include "../Savegame/TerrorSite.h"
 #include "PatrolBAIState.h"
+#include "../Savegame/AlienBase.h"
 
 namespace OpenXcom
 {
@@ -165,6 +166,16 @@ void BattlescapeGenerator::setTerrorSite(TerrorSite *terror)
 	_terror->setInBattlescape(true);
 }
 
+
+/**
+ * Sets the alien base involved in the battle.
+ * @param base Pointer to alien base.
+ */
+void BattlescapeGenerator::setAlienBase(AlienBase *base)
+{
+	_alienBase = base;
+	_alienBase->setInBattlescape(true);
+}
 
 /**
  * This will start the generator: it will fill up the battlescapesavegame with data.

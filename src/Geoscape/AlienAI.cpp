@@ -16,6 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with OpenXcom.  If not, see <http://www.gnu.org/licenses/>.
  */
+#define _USE_MATH_DEFINES
 #include "AlienAI.h"
 #include "AlienTerrorState.h"
 #include "GeoscapeState.h"
@@ -27,6 +28,7 @@
 #include "../Ruleset/RuleUfo.h"
 #include "../Savegame/SavedGame.h"
 #include "../Savegame/TerrorSite.h"
+#include "../Savegame/AlienBase.h"
 #include "../Savegame/Ufo.h"
 #include "../Savegame/Waypoint.h"
 #include <math.h>
@@ -106,4 +108,26 @@ void AlienAI::handle(const EveryMonth &)
 	_game.pushState(new AlienTerrorState(&_game, city, &_parent));
 }
 
+
+/**
+ * Create a new Alien Base.
+ * @param lon Longitude for the new base.
+ * @param lat Latitude for this base.
+ */
+void AlienAI::SpawnBase(double lon, double lat)
+{	
+	AlienBase *b = new AlienBase();
+	b->setLongitude(lon);
+	b->setLatitude(lat);
+	b->setSupplyTime(0);
+	b->setDiscovered(false);
+	b->setId(_game.getSavedGame()->getId("STR_ALIEN_BASE_"));
+	int race = RNG::generate(1, 2);
+	if (race == 1)
+		b->setAlienRace("STR_SECTOID");
+	else if (race == 2)
+		b->setAlienRace("STR_FLOATER");
+	_game.getSavedGame()->getAlienBases()->push_back(b);
+	
+}
 }

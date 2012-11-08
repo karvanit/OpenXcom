@@ -53,6 +53,7 @@ private:
 	std::string _status;
 	bool _lowFuel;
 	bool _inBattlescape;
+	bool _patrol;
 public:
 	/// Creates a craft of the specified type.
 	Craft(RuleCraft *rules, Base *base, int id = 0);
@@ -148,6 +149,10 @@ public:
 	int getSpaceUsed() const;
 	/// Gets the craft's vehicles of a certain type.
 	int getVehicleCount(const std::string &vehicle) const;
+	/// set the patrol status of a craft
+	void setPatrol(bool patrol);
+	/// get the patrol status of a craft
+	bool getPatrol() const;
 };
 
 }

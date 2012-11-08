@@ -80,6 +80,10 @@
 #include "AlienTerrorState.h"
 #include "AlienAI.h"
 #include "GeoEvents.h"
+#include "UfoHyperDetectedState.h"
+#include "../Savegame/AlienBase.h"
+#include "AlienBaseState.h"
+
 
 namespace OpenXcom
 {
@@ -474,6 +478,7 @@ void GeoscapeState::time5Seconds()
 		if ((*i)->reachedDestination() || (*i)->getHoursCrashed() == 0)
 		{
 			(*i)->setDetected(false);
+			(*i)->setHyperDetected(false);
 			if (!(*i)->getFollowers()->empty())
 			{
 				_game->pushState(new UfoLostState(_game, (*i)->getName(_game->getLanguage())));
@@ -488,6 +493,7 @@ void GeoscapeState::time5Seconds()
 		{
 			if ((*j)->getDestination() != 0)
 			{
+				(*j)->setPatrol(false);
 				Ufo* u = dynamic_cast<Ufo*>((*j)->getDestination());
 				if (u != 0 && !u->getDetected())
 				{
@@ -505,6 +511,7 @@ void GeoscapeState::time5Seconds()
 				Ufo* u = dynamic_cast<Ufo*>((*j)->getDestination());
 				Waypoint *w = dynamic_cast<Waypoint*>((*j)->getDestination());
 				TerrorSite* t = dynamic_cast<TerrorSite*>((*j)->getDestination());
+				AlienBase* b = dynamic_cast<AlienBase*>((*j)->getDestination());
 				if (u != 0)
 				{
 					if (!u->isCrashed())
@@ -533,6 +540,7 @@ void GeoscapeState::time5Seconds()
 				else if (w != 0)
 				{
 					_game->pushState(new CraftPatrolState(_game, (*j), _globe));
+					(*j)->setPatrol(true);
 					(*j)->setDestination(0);
 				}
 				else if (t != 0)
@@ -542,6 +550,21 @@ void GeoscapeState::time5Seconds()
 						// look up polygons texture
 						int texture, shade;
 						_globe->getPolygonTextureAndShade(t->getLongitude(), t->getLatitude(), &texture, &shade);
+						_music = false;
+						timerReset();
+						_game->pushState(new ConfirmLandingState(_game, *j, texture, shade));
+					}
+					else
+					{
+						(*j)->returnToBase();
+					}
+				}
+				else if (b != 0)
+				{
+					if((*j)->getNumSoldiers() > 0)
+					{
+						int texture, shade;
+						_globe->getPolygonTextureAndShade(b->getLongitude(), b->getLatitude(), &texture, &shade);
 						_music = false;
 						timerReset();
 						_game->pushState(new ConfirmLandingState(_game, *j, texture, shade));
@@ -617,6 +640,16 @@ void GeoscapeState::time10Minutes()
 					(*j)->returnToBase();
 					_game->pushState(new LowFuelState(_game, (*j), this));
 				}
+				if((*j)->getPatrol())
+				{
+					for(std::vector<AlienBase*>::iterator b = _game->getSavedGame()->getAlienBases()->begin(); b != _game->getSavedGame()->getAlienBases()->end(); b++)
+					{
+						if (_globe->targetNearPolar((*b), (*j)->getLongitude(),(*j)->getLatitude(), 500) && RNG::generate(1, 100) < 20)
+						{
+							(*b)->setDiscovered(true);
+						}
+					}
+				}
 			}
 		}
 	}
@@ -673,11 +706,14 @@ void GeoscapeState::time30Minutes()
 		if (!(*u)->getDetected())
 		{
 			bool detected = false;
+			bool hyperDetected = false;
 			for (std::vector<Base*>::iterator b = _game->getSavedGame()->getBases()->begin(); b != _game->getSavedGame()->getBases()->end() && !detected; ++b)
 			{
 				if ((*b)->detect(*u))
 				{
 					detected = true;
+					if((*b)->getHyperDetection())
+						(*u)->setHyperDetected(true);
 				}
 				for (std::vector<Craft*>::iterator c = (*b)->getCrafts()->begin(); c != (*b)->getCrafts()->end() && !detected; ++c)
 				{
@@ -692,7 +728,10 @@ void GeoscapeState::time30Minutes()
 			if (detected)
 			{
 				(*u)->setDetected(detected);
-				_game->pushState(new UfoDetectedState(_game, (*u), this, true));
+				if(!(*u)->getHyperDetected())
+					_game->pushState(new UfoHyperDetectedState(_game, (*u), this, true));
+				else
+					_game->pushState(new UfoDetectedState(_game, (*u), this, true));
 			}
 		}
 		else
@@ -709,6 +748,7 @@ void GeoscapeState::time30Minutes()
 			(*u)->setDetected(detected);
 			if (!detected && !(*u)->getFollowers()->empty())
 			{
+				(*u)->setHyperDetected(false);
 				_game->pushState(new UfoLostState(_game, (*u)->getName(_game->getLanguage())));
 			}
 		}
@@ -874,6 +914,21 @@ void GeoscapeState::time1Month()
 	_game->getSavedGame()->monthlyFunding();
 	_game->pushState(new MonthlyReportState(_game));
 	post(new EveryMonth());
+	
+	if(_game->getSavedGame()->getAlienBases()->size())
+	{
+		bool _baseDiscovered = false;
+		for(std::vector<AlienBase*>::const_iterator b = _game->getSavedGame()->getAlienBases()->begin(); b != _game->getSavedGame()->getAlienBases()->end(); ++b)
+		{
+			int number = RNG::generate(1, 100);
+			if(!(*b)->isDiscovered() && number <= 5 && !_baseDiscovered)
+			{
+				(*b)->setDiscovered(true);
+				_baseDiscovered = true;
+				_game->pushState(new AlienBaseState(_game, *b, this));
+			}
+		}
+	}
 }
 
 /**

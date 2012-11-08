@@ -34,6 +34,7 @@
 #include "TerrorSite.h"
 #include "Vehicle.h"
 #include "../Ruleset/RuleItem.h"
+#include "AlienBase.h"
 
 namespace OpenXcom
 {
@@ -45,7 +46,7 @@ namespace OpenXcom
  * @param base Pointer to base of origin.
  * @param ids List of craft IDs (Leave NULL for no ID).
  */
-Craft::Craft(RuleCraft *rules, Base *base, int id) : MovingTarget(), _rules(rules), _base(base), _id(0), _fuel(0), _damage(0), _weapons(), _status("STR_READY"), _lowFuel(false), _inBattlescape(false)
+Craft::Craft(RuleCraft *rules, Base *base, int id) : MovingTarget(), _rules(rules), _base(base), _id(0), _fuel(0), _damage(0), _weapons(), _status("STR_READY"), _lowFuel(false), _inBattlescape(false), _patrol(false)
 {
 	_items = new ItemContainer();
 	if (id != 0)
@@ -122,6 +123,17 @@ void Craft::load(const YAML::Node &node, const Ruleset *rule, SavedGame *save)
 		else if (type == "STR_TERROR_SITE")
 		{
 			for (std::vector<TerrorSite*>::iterator i = save->getTerrorSites()->begin(); i != save->getTerrorSites()->end(); ++i)
+			{
+				if ((*i)->getId() == id)
+				{
+					setDestination(*i);
+					break;
+				}
+			}
+		}
+		else if (type == "STR_ALIEN_BASE")
+		{
+			for (std::vector<AlienBase*>::iterator i = save->getAlienBases()->begin(); i != save->getAlienBases()->end(); ++i)
 			{
 				if ((*i)->getId() == id)
 				{
@@ -327,6 +339,21 @@ void Craft::setDestination(Target *dest)
 	MovingTarget::setDestination(dest);
 }
 
+/**
+ * Changes the patrol status of the craft.
+ */
+void Craft::setPatrol(bool patrol)
+{
+	_patrol = patrol;
+}
+
+/**
+ * Returns the patrol status of the craft.
+ */
+bool Craft::getPatrol() const
+{
+	return _patrol;
+}
 /**
  * Returns the amount of weapons currently
  * equipped on this craft.
