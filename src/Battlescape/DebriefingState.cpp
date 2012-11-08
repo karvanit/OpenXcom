@@ -42,6 +42,7 @@
 #include "../Savegame/TerrorSite.h"
 #include "PromotionsState.h"
 #include "CannotReequipState.h"
+#include "../Savegame/AlienBase.h"
 
 namespace OpenXcom
 {
@@ -314,6 +315,17 @@ void DebriefingState::prepareDebriefing()
 		{
 			delete *i;
 			save->getTerrorSites()->erase(i);
+			break;
+		}
+	}
+
+	// alien base disappears
+	for (std::vector<AlienBase*>::iterator i = save->getAlienBases()->begin(); i != save->getAlienBases()->end(); ++i)
+	{
+		if ((*i)->isInBattlescape())
+		{
+			delete *i;
+			save->getAlienBases()->erase(i);
 			break;
 		}
 	}
