@@ -25,11 +25,15 @@
 namespace OpenXcom
 {
 
-void operator>>(const YAML::Node &nd, RuleAlienMission &mission)
+/**
+ * Loads the mission data from a YAML node.
+ * @param node YAML node.
+ */
+void RuleAlienMission::load(const YAML::Node &node)
 {
-	nd["type"] >> mission._type;
+	node["type"] >> _type;
 	//Only allow full replacement of mission racial distribution.
-	if (const YAML::Node *pRaces = nd.FindValue("races"))
+	if (const YAML::Node *pRaces = node.FindValue("races"))
 	{
 		std::vector<std::pair<unsigned, WeightedOptions*> > nraces(pRaces->size());
 		for (unsigned ii = 0; ii < pRaces->size(); ++ii)
@@ -39,18 +43,22 @@ void operator>>(const YAML::Node &nd, RuleAlienMission &mission)
 			(*pRaces)[ii]["distribution"] >> *dist;
 			nraces[ii].second = dist.release();
 		}
-		mission._raceDistribution.swap(nraces);
+		_raceDistribution.swap(nraces);
 	}
 }
 
-YAML::Emitter &operator<<(YAML::Emitter &out, const RuleAlienMission &mission)
+/**
+ * Saves the alien mission data to a YAML file.
+ * @param out YAML emitter.
+ */
+void RuleAlienMission::save(YAML::Emitter &out) const
 {
 	out << YAML::BeginMap;
-	out << YAML::Key << "type" << YAML::Value << mission._type;
+	out << YAML::Key << "type" << YAML::Value <<_type;
 	out << YAML::Key << "races" << YAML::Value;
 	out << YAML::BeginSeq;
-	for (std::vector<std::pair<unsigned, WeightedOptions*> >::const_iterator ii = mission._raceDistribution.begin();
-	     ii != mission._raceDistribution.end(); ++ii)
+	for (std::vector<std::pair<unsigned, WeightedOptions*> >::const_iterator ii = _raceDistribution.begin();
+	     ii != _raceDistribution.end(); ++ii)
 	{
 		out << YAML::BeginMap;
 		out << YAML::Key << "afterMonth" << YAML::Value << ii->first;
@@ -58,11 +66,11 @@ YAML::Emitter &operator<<(YAML::Emitter &out, const RuleAlienMission &mission)
 		out << YAML::EndMap;
 	}
 	out << YAML::EndSeq;
-	return out;
 }
 
 /**
  * Choose one of the available races for this mission.
+ * The racial distribution may vary based on the current game date.
  * @param gameTime The current date and time of the game world.
  * @return The string id of the race.
  */

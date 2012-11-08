@@ -501,12 +501,12 @@ void Ruleset::load(const std::string &filename)
 				(*j)["type"] >> type;
 				if (_alienMissions.find(type) != _alienMissions.end())
 				{
-					*j >> *_alienMissions[type];
+					_alienMissions[type]->load(*j);
 				}
 				else
 				{
 					std::auto_ptr<RuleAlienMission> rule(new RuleAlienMission());
-					*j >> *rule;
+					rule->load(*j);
 					_alienMissions[type] = rule.release();
 					_alienMissionsIndex.push_back(type);
 				}
@@ -708,7 +708,7 @@ void Ruleset::save(const std::string &filename) const
 	out << YAML::BeginSeq;
 	for (std::map<std::string, RuleAlienMission*>::const_iterator i = _alienMissions.begin(); i != _alienMissions.end(); ++i)
 	{
-		out << *i->second;
+		i->second->save(out);
 	}
 	out << YAML::EndSeq;
 	out << YAML::Key << "ufopaedia" << YAML::Value;

@@ -34,14 +34,18 @@ class GameTime;
 class RuleAlienMission
 {
 public:
+	/// Get the mission's type.
         const std::string &getType() const { return _type; }
+	/// Get a race based on the game time and the racial distribution.
         const std::string &generateRace(const GameTime &gtime) const;
+	/// Loads alien mission data from YAML.
+	void load(const YAML::Node &node);
+	/// Saves the alien mission data to YAML.
+	void save(YAML::Emitter &out) const;
 private:
 	std::string _type;
 	std::vector<std::pair<unsigned, WeightedOptions*> > _raceDistribution;
 
-friend void operator>>(const YAML::Node &, RuleAlienMission &);
-friend YAML::Emitter &operator<<(YAML::Emitter &, const RuleAlienMission &);
 };
 
 }
