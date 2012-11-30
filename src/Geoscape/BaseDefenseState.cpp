@@ -36,6 +36,8 @@
 #include "../Engine/RNG.h"
 #include "../Battlescape/BriefingState.h"
 #include "../Battlescape/BattlescapeGenerator.h"
+#include "../Engine/SoundSet.h"
+#include "../Engine/Sound.h"
 #include <ctime>
 
 namespace OpenXcom
@@ -104,22 +106,22 @@ BaseDefenseState::BaseDefenseState(Game *game, Base *base, Ufo *ufo) : State(gam
 			++row;
 			delay();
 			_lstDefenses->setCellText(row, 2, _game->getLanguage()->getString("STR_FIRING"));
-			// play firing sound
+			_game->getResourcePack()->getSoundSet("BATTLE.CAT")->getSound((*def)->getRules()->getFireSound())->play();
 			delay();
 			if(RNG::generate(1, 100) > (*def)->getRules()->getHitRatio())
 			{
 				_lstDefenses->setCellText(row, 3, _game->getLanguage()->getString("STR_MISSED"));
-				//play miss sound
 			}
 			else
 			{
 				_lstDefenses->setCellText(row, 3, _game->getLanguage()->getString("STR_HIT"));
-				//play hit sound
+				_game->getResourcePack()->getSoundSet("BATTLE.CAT")->getSound((*def)->getRules()->getHitSound())->play();
 				_ufo->setDamage(_ufo->getDamage() + (*def)->getRules()->getDefenseValue());
 				if(_ufo->getStatus() == 3)
 				{
 					delay();
 					_lstDefenses->addRow(3, _game->getLanguage()->getString("STR_UFO_DESTROYED"),"","");
+					_game->getResourcePack()->getSoundSet("BATTLE.CAT")->getSound(5)->play();
 					continue;
 				}
 			}
@@ -151,6 +153,7 @@ void BaseDefenseState::init()
  */
 void BaseDefenseState::btnOkClick(Action *action)
 {
+	_game->setPalette(_game->getResourcePack()->getPalette("PALETTES.DAT_0")->getColors());
 	_game->popState();
 	if(_ufo->getStatus() != 3)
 	{
