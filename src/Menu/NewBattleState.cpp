@@ -369,7 +369,7 @@ void NewBattleState::btnOkClick(Action *action)
 
 	bgen.run();
 	//_game->pushState(new BattlescapeState(_game));
-	_game->pushState(new BriefingState(_game, _craft));
+	_game->pushState(new BriefingState(_game, _craft, 0));
 	_craft = 0;
 }
 

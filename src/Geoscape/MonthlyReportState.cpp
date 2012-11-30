@@ -99,7 +99,7 @@ MonthlyReportState::MonthlyReportState(Game *game, bool psi) : State(game), _psi
 	case 11: m = "STR_NOV"; break;
 	case 12: m = "STR_DEC"; break;
 	}
-	int difficulty_threshold= 100*(_game->getSavedGame()->getDifficulty()-8);
+	int difficulty_threshold = 100*(_game->getSavedGame()->getDifficulty()-9);
 
 	std::wstringstream ss;
 	ss << _game->getLanguage()->getString("STR_MONTH") << L'\x01' << _game->getLanguage()->getString(m) << L" " << year;
@@ -121,21 +121,21 @@ MonthlyReportState::MonthlyReportState(Game *game, bool psi) : State(game), _psi
 	{
 		rating = _game->getLanguage()->getString("STR_RATING_TERRIBLE");
 	}
-	else if (_ratingTotal > difficulty_threshold-300)
+	if (_ratingTotal > difficulty_threshold-300)
 	{
 		rating = _game->getLanguage()->getString("STR_RATING_POOR");
 	}
-	else if (_ratingTotal > difficulty_threshold)
+	if (_ratingTotal > difficulty_threshold)
 	{
 		rating = _game->getLanguage()->getString("STR_RATING_OK");
 	}
-	else if (_ratingTotal > 0)
+	if (_ratingTotal > 0)
 	{
 		rating = _game->getLanguage()->getString("STR_RATING_GOOD");
 	}
-	else if (_ratingTotal > 500)
+	if (_ratingTotal > 500)
 	{
-		rating += _game->getLanguage()->getString("STR_RATING_EXCELLENT");
+		rating = _game->getLanguage()->getString("STR_RATING_EXCELLENT");
 	}
 	_txtRatingTxt->setColor(Palette::blockOffset(15)-1);
 	_txtRatingTxt->setText(rating);
@@ -177,13 +177,13 @@ MonthlyReportState::MonthlyReportState(Game *game, bool psi) : State(game), _psi
 			ss4 << _game->getLanguage()->getString("STR_COUNCIL_IS_DISSATISFIED");
 		}
 	}
-	else if(_ratingTotal > difficulty_threshold)
-	{
-		ss4 << _game->getLanguage()->getString("STR_COUNCIL_IS_GENERALLY_SATISFIED");
-	}
 	else if(_ratingTotal > 500)
 	{
 		ss4 << _game->getLanguage()->getString("STR_COUNCIL_IS_VERY_PLEASED");
+	}
+	else
+	{
+		ss4 << _game->getLanguage()->getString("STR_COUNCIL_IS_GENERALLY_SATISFIED");
 	}
 
 	if(resetWarning && _game->getSavedGame()->getWarned())
@@ -345,8 +345,8 @@ void MonthlyReportState::CalculateChanges()
 	{
 		if((*k)->getActivityXcom().size() >1)
 			_lastMonthsRating += (*k)->getActivityXcom().at((*k)->getActivityXcom().size()-2)-(*k)->getActivityAlien().at((*k)->getActivityAlien().size()-2);
-		xcomTotal = (*k)->getActivityXcom().at((*k)->getActivityXcom().size()-1);
-		alienTotal = (*k)->getActivityAlien().at((*k)->getActivityAlien().size()-1);
+		xcomTotal += (*k)->getActivityXcom().at((*k)->getActivityXcom().size()-1);
+		alienTotal += (*k)->getActivityAlien().at((*k)->getActivityAlien().size()-1);
 	}
 
 	//calculate total, and average scores.
