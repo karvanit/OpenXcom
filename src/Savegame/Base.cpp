@@ -1066,4 +1066,30 @@ std::string Base::getRegion() const
 	return rlist[0];
 }
 
+int Base::getGravShields() const
+{	
+	int total = 0;
+	for (std::vector<BaseFacility*>::const_iterator i = _facilities.begin(); i != _facilities.end(); ++i)
+	{
+		if ((*i)->getBuildTime() == 0 && (*i)->getRules()->isGravShield())
+		{
+			++total;
+		}
+	}
+	return total;
+}
+
+
+std::vector<BaseFacility*> *Base::getDefenses()
+{
+	std::vector<BaseFacility*> *total = 0;
+	for (std::vector<BaseFacility*>::const_iterator i = _facilities.begin(); i != _facilities.end(); ++i)
+	{
+		if ((*i)->getBuildTime() == 0 && (*i)->getRules()->getDefenseValue())
+		{
+			total->push_back(*i);
+		}
+	}
+	return total;
+}
 }
