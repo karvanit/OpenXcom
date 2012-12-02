@@ -1232,7 +1232,7 @@ RuleInventory *Ruleset::getInventory(const std::string &id) const
  * @param id Research project type.
  * @return Rules for the research project.
  */
-RuleResearch *Ruleset::getResearch (const std::string &id) const
+const RuleResearch *Ruleset::getResearch (const std::string &id) const
 {
 	std::map<std::string, RuleResearch *>::const_iterator i = _research.find(id);
 	if (_research.end() != i) return i->second; else return 0;

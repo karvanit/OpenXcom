@@ -172,7 +172,7 @@ public:
 	/// Gets the transfer time of personnel.
 	int getPersonnelTime() const;
 	/// Gets the ruleset for a specific research project.
-	RuleResearch *getResearch (const std::string &id) const;
+	const RuleResearch *getResearch (const std::string &id) const;
 	/// Get the list of all research projects.
 	const std::vector<std::string> &getResearchList () const;
 	/// Gets the ruleset for a specific manufacture project.

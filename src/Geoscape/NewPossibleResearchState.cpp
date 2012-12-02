@@ -37,7 +37,7 @@ namespace OpenXcom
  * @param base Pointer to the base to get info from.
  * @param possibilities List of newly possible ResearchProject
  */
-NewPossibleResearchState::NewPossibleResearchState(Game * game, Base * base, const std::vector<RuleResearch *> & possibilities) : State (game), _base(base)
+NewPossibleResearchState::NewPossibleResearchState(Game * game, Base * base, const std::vector<const RuleResearch *> & possibilities) : State (game), _base(base)
 {
 	_screen = false;
 
@@ -77,7 +77,7 @@ NewPossibleResearchState::NewPossibleResearchState(Game * game, Base * base, con
 	_lstPossibilities->setAlign(ALIGN_CENTER);
 	
 	size_t tally(0);
-	for(std::vector<RuleResearch *>::const_iterator iter = possibilities.begin (); iter != possibilities.end (); ++iter)
+	for(std::vector<const RuleResearch *>::const_iterator iter = possibilities.begin(); iter != possibilities.end(); ++iter)
 	{
 		std::vector<std::string>::const_iterator unlocked = std::find((*iter)->getUnlocked().begin(), (*iter)->getUnlocked().end(), "STR_ALIEN_ORIGINS");
 		if((*iter)->getRequirements().size() == 0 && unlocked == (*iter)->getUnlocked().end())

@@ -1373,7 +1373,7 @@ void GeoscapeState::time1Day()
 		for(std::vector<ResearchProject*>::const_iterator iter = finished.begin (); iter != finished.end (); ++iter)
 		{
 			(*i)->removeResearch(*iter);
-			RuleResearch * bonus = 0;
+			const RuleResearch * bonus = 0;
 			const RuleResearch * research = (*iter)->getRules ();
 			if((*iter)->getRules()->getGetOneFree().size() != 0)
 			{
@@ -1416,7 +1416,7 @@ void GeoscapeState::time1Day()
 				_game->getSavedGame()->addFinishedResearch(_game->getRuleset()->getResearch(research->getLookup()), _game->getRuleset ());
 			}
 			popup(new ResearchCompleteState(_game, newResearch, bonus));
-			std::vector<RuleResearch *> newPossibleResearch;
+			std::vector<const RuleResearch *> newPossibleResearch;
 			_game->getSavedGame()->getDependableResearch (newPossibleResearch, (*iter)->getRules(), _game->getRuleset(), *i);
 			std::vector<RuleManufacture *> newPossibleManufacture;
 			_game->getSavedGame()->getDependableManufacture (newPossibleManufacture, (*iter)->getRules(), _game->getRuleset(), *i);

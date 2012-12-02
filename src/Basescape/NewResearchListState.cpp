@@ -101,7 +101,7 @@ void NewResearchListState::init()
 void NewResearchListState::onSelectProject(Action *)
 {
 	_game->pushState(new ResearchInfoState(_game, _base, _projects[_lstResearch->getSelectedRow()]));
-	RuleResearch *_proj = _projects[_lstResearch->getSelectedRow()];
+	const RuleResearch *_proj = _projects[_lstResearch->getSelectedRow()];
 	if ((_proj)->needItem() && _game->getRuleset()->getUnit(_proj->getName()))
 	{
 		_base->getItems()->removeItem(_proj->getName(), 1);
@@ -125,7 +125,7 @@ void NewResearchListState::fillProjectList ()
 	_projects.clear();
 	_lstResearch->clearList();
 	_game->getSavedGame()->getAvailableResearchProjects(_projects, _game->getRuleset() , _base);
-	std::vector<RuleResearch *>::iterator it = _projects.begin ();
+	std::vector<const RuleResearch *>::iterator it = _projects.begin ();
 	while  ( it != _projects.end ())
 	{
 		if((*it)->getRequirements().size() == 0)

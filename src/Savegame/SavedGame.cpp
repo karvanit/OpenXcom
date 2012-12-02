@@ -55,12 +55,12 @@ namespace OpenXcom
 struct findRuleResearch : public std::unary_function<ResearchProject *,
 								bool>
 {
-	RuleResearch * _toFind;
-	findRuleResearch(RuleResearch * toFind);
+	const RuleResearch * _toFind;
+	findRuleResearch(const RuleResearch * toFind);
 	bool operator()(const ResearchProject *r) const;
 };
 
-findRuleResearch::findRuleResearch(RuleResearch * toFind) : _toFind(toFind)
+findRuleResearch::findRuleResearch(const RuleResearch * toFind) : _toFind(toFind)
 {
 }
 
@@ -727,7 +727,7 @@ void SavedGame::setBattleGame(SavedBattleGame *battleGame)
 */
 void SavedGame::addFinishedResearch (const RuleResearch * r, const Ruleset * ruleset)
 {
-	std::vector<const RuleResearch *>::const_iterator itDiscovered = std::find(_discovered.begin (), _discovered.end (), r);
+	std::vector<const RuleResearch *>::const_iterator itDiscovered = std::find(_discovered.begin(), _discovered.end(), r);
 	if(itDiscovered == _discovered.end())
 	{
 		_discovered.push_back(r);
@@ -735,12 +735,12 @@ void SavedGame::addFinishedResearch (const RuleResearch * r, const Ruleset * rul
 	}
 	if(ruleset)
 	{
-		std::vector<RuleResearch*> availableResearch;
+		std::vector<const RuleResearch*> availableResearch;
 		for(std::vector<Base*>::const_iterator it = _bases.begin (); it != _bases.end (); ++it)
 		{
 			getDependableResearchBasic(availableResearch, r, ruleset, *it);
 		}
-		for(std::vector<RuleResearch*>::iterator it = availableResearch.begin (); it != availableResearch.end (); ++it)
+		for(std::vector<const RuleResearch*>::iterator it = availableResearch.begin(); it != availableResearch.end(); ++it)
 		{
 			if((*it)->getCost() == 0 && (*it)->getRequirements().size() == 0)
 			{
@@ -777,7 +777,7 @@ const std::vector<const RuleResearch *> & SavedGame::getDiscoveredResearch() con
    * @param ruleset the Game Ruleset
    * @param base a pointer to a Base
 */
-void SavedGame::getAvailableResearchProjects (std::vector<RuleResearch *> & projects, const Ruleset * ruleset, Base * base) const
+void SavedGame::getAvailableResearchProjects (std::vector<const RuleResearch *> & projects, const Ruleset * ruleset, Base * base) const
 {
 	const std::vector<const RuleResearch *> & discovered(getDiscoveredResearch());
 	std::vector<std::string> researchProjects = ruleset->getResearchList();
@@ -792,7 +792,7 @@ void SavedGame::getAvailableResearchProjects (std::vector<RuleResearch *> & proj
 	}
 	for(std::vector<std::string>::const_iterator iter = researchProjects.begin (); iter != researchProjects.end (); ++iter)
 	{
-		RuleResearch *research = ruleset->getResearch(*iter);
+		const RuleResearch *research = ruleset->getResearch(*iter);
 		if (!isResearchAvailable(research, unlocked, ruleset))
 		{
 			continue;
@@ -850,7 +850,7 @@ void SavedGame::getAvailableResearchProjects (std::vector<RuleResearch *> & proj
 			}
 		}
 
-		if (std::find_if (baseResearchProjects.begin(), baseResearchProjects.end (), findRuleResearch(research)) != baseResearchProjects.end ())
+		if (std::find_if(baseResearchProjects.begin(), baseResearchProjects.end (), findRuleResearch(research)) != baseResearchProjects.end())
 		{
 			continue;
 		}
@@ -910,7 +910,7 @@ void SavedGame::getAvailableProductions (std::vector<RuleManufacture *> & produc
    * @param unlocked the list of currently unlocked RuleResearch
    * @return true if the RuleResearch can be researched
 */
-bool SavedGame::isResearchAvailable (RuleResearch * r, const std::vector<const RuleResearch *> & unlocked, const Ruleset * ruleset) const
+bool SavedGame::isResearchAvailable(const RuleResearch * r, const std::vector<const RuleResearch *> & unlocked, const Ruleset * ruleset) const
 {
 	std::vector<std::string> deps = r->getDependencies();
 	const std::vector<const RuleResearch *> & discovered(getDiscoveredResearch());
@@ -955,7 +955,7 @@ bool SavedGame::isResearchAvailable (RuleResearch * r, const std::vector<const R
 
 	for(std::vector<std::string>::const_iterator iter = deps.begin (); iter != deps.end (); ++ iter)
 	{
-		RuleResearch *research = ruleset->getResearch(*iter);
+		const RuleResearch *research = ruleset->getResearch(*iter);
 		std::vector<const RuleResearch *>::const_iterator itDiscovered = std::find(discovered.begin (), discovered.end (), research);
 		if (itDiscovered == discovered.end ())
 		{
@@ -973,7 +973,7 @@ bool SavedGame::isResearchAvailable (RuleResearch * r, const std::vector<const R
    * @param ruleset the Game Ruleset
    * @param base a pointer to a Base
 */
-void SavedGame::getDependableResearch (std::vector<RuleResearch *> & dependables, const RuleResearch *research, const Ruleset * ruleset, Base * base) const
+void SavedGame::getDependableResearch(std::vector<const RuleResearch *> & dependables, const RuleResearch *research, const Ruleset * ruleset, Base * base) const
 {
 	getDependableResearchBasic(dependables, research, ruleset, base);
 	for(std::vector<const RuleResearch *>::const_iterator iter = _discovered.begin (); iter != _discovered.end (); ++iter)
@@ -995,18 +995,18 @@ void SavedGame::getDependableResearch (std::vector<RuleResearch *> & dependables
    * @param ruleset the Game Ruleset
    * @param base a pointer to a Base
 */
-void SavedGame::getDependableResearchBasic (std::vector<RuleResearch *> & dependables, const RuleResearch *research, const Ruleset * ruleset, Base * base) const
+void SavedGame::getDependableResearchBasic(std::vector<const RuleResearch *> & dependables, const RuleResearch *research, const Ruleset * ruleset, Base * base) const
 {
-	std::vector<RuleResearch *> possibleProjects;
+	std::vector<const RuleResearch *> possibleProjects;
 	getAvailableResearchProjects(possibleProjects, ruleset, base);
-	for(std::vector<RuleResearch *>::iterator iter = possibleProjects.begin (); iter != possibleProjects.end (); ++iter)
+	for(std::vector<const RuleResearch *>::iterator iter = possibleProjects.begin(); iter != possibleProjects.end(); ++iter)
 	{
 		if (std::find((*iter)->getDependencies().begin (), (*iter)->getDependencies().end (), research->getName()) != (*iter)->getDependencies().end ()
-			||
-			std::find((*iter)->getUnlocked().begin (), (*iter)->getUnlocked().end (), research->getName()) != (*iter)->getUnlocked().end ()
-			)
+		    ||
+		    std::find((*iter)->getUnlocked().begin (), (*iter)->getUnlocked().end (), research->getName()) != (*iter)->getUnlocked().end ()
+		   )
 		{
-				dependables.push_back(*iter);
+			dependables.push_back(*iter);
 			if ((*iter)->getCost() == 0)
 			{
 				getDependableResearchBasic(dependables, *iter, ruleset, base);

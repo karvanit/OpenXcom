@@ -32,12 +32,12 @@ class Ruleset;
 */
 class ResearchProject
 {
-	RuleResearch * _project;
+	const RuleResearch * _project;
 	int _assigned;
 	int _spent;
 	int _cost;
 public:
-	ResearchProject(RuleResearch * p, int c = 0);
+	ResearchProject(const RuleResearch * p, int c = 0);
 	/// Game logic. Called every new day to compute time spent.
 	bool step();
 	/// set the number of scientist assigned to this ResearchProject

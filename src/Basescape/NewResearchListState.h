@@ -43,7 +43,7 @@ private:
 	Text *_txtTitle;
 	TextList *_lstResearch;
 	void onSelectProject(Action *action);
-	std::vector<RuleResearch *> _projects;
+	std::vector<const RuleResearch *> _projects;
 public:
 	/// Creates the New research list state.
 	NewResearchListState(Game *game, Base *base);

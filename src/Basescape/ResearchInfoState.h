@@ -52,14 +52,14 @@ private:
 	std::vector<Text*> texts_;
 	void SetAssignedScientist();
 	ResearchProject * _project;
-	RuleResearch * _rule;
+	const RuleResearch * _rule;
 	void buildUi ();
 	Timer *_timerMore, *_timerLess;
 	InteractiveSurface *_surface;
 	int _changeValueByMouseWheel;
 public:
 	/// Creates the ResearchProject state.
-	ResearchInfoState(Game *game, Base *base, RuleResearch * rule);
+	ResearchInfoState(Game *game, Base *base, const RuleResearch * rule);
 	ResearchInfoState(Game *game, Base *base, ResearchProject * project);
 	/// Handler for clicking the OK button.
 	void btnOkClick(Action *action);
