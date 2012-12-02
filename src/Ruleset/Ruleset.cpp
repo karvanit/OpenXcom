@@ -1109,7 +1109,7 @@ const std::vector<std::string> &Ruleset::getAlienRacesList() const
  * @param name Deployment name.
  * @return Rules for the deployment.
  */
-AlienDeployment *Ruleset::getDeployment(const std::string &name) const
+const AlienDeployment *Ruleset::getDeployment(const std::string &name) const
 {
 	std::map<std::string, AlienDeployment*>::const_iterator i = _alienDeployments.find(name);
 	if (_alienDeployments.end() != i) return i->second; else return 0;

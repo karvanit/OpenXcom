@@ -148,7 +148,7 @@ public:
 	/// Gets the available alien races.
 	const std::vector<std::string> &getAlienRacesList() const;
 	/// Gets deployment rules.
-	AlienDeployment *getDeployment(const std::string &name) const;
+	const AlienDeployment *getDeployment(const std::string &name) const;
 	/// Gets the available alien deployments.
 	const std::vector<std::string> &getDeploymentsList() const;
 	/// Gets armor rules.

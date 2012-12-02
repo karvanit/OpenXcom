@@ -164,13 +164,13 @@ std::string AlienDeployment::getType() const
 }
 
 /// Gets a pointer to the data.
-std::vector<DeploymentData>* AlienDeployment::getDeploymentData()
+const std::vector<DeploymentData> *AlienDeployment::getDeploymentData() const
 {
 	return &_data;
 }
 
 /// Get dimensions.
-void AlienDeployment::getDimensions(int *width, int *length, int *height)
+void AlienDeployment::getDimensions(int *width, int *length, int *height) const
 {
 	*width = _width;
 	*length = _length;

@@ -183,7 +183,7 @@ void BattlescapeGenerator::nextStage()
 	if (_game->getSavedGame()->getBattleGame()->getSide() != FACTION_PLAYER)
 		_game->getSavedGame()->getBattleGame()->endTurn();
 
-	AlienDeployment *ruleDeploy = _game->getRuleset()->getDeployment(_save->getMissionType());
+	const AlienDeployment *ruleDeploy = _game->getRuleset()->getDeployment(_save->getMissionType());
 	ruleDeploy->getDimensions(&_mapsize_x, &_mapsize_y, &_mapsize_z);
 	if (_save->getMissionType() == "STR_MARS_THE_FINAL_ASSAULT")
 	{
@@ -227,7 +227,7 @@ void BattlescapeGenerator::nextStage()
  */
 void BattlescapeGenerator::run()
 {
-	AlienDeployment *ruleDeploy = _game->getRuleset()->getDeployment(_ufo?_ufo->getRules()->getType():_save->getMissionType());
+	const AlienDeployment *ruleDeploy = _game->getRuleset()->getDeployment(_ufo?_ufo->getRules()->getType():_save->getMissionType());
 
 	ruleDeploy->getDimensions(&_mapsize_x, &_mapsize_y, &_mapsize_z);
 
@@ -559,9 +559,9 @@ BattleUnit *BattlescapeGenerator::addXCOMUnit(BattleUnit *unit)
  * @param race Pointer to the alien race.
  * @param deployment Pointer to the deployment rules.
  */
-void BattlescapeGenerator::deployAliens(const AlienRace *race, AlienDeployment *deployment)
+void BattlescapeGenerator::deployAliens(const AlienRace *race, const AlienDeployment *deployment)
 {
-	for (std::vector<DeploymentData>::iterator d = deployment->getDeploymentData()->begin(); d != deployment->getDeploymentData()->end(); ++d)
+	for (std::vector<DeploymentData>::const_iterator d = deployment->getDeploymentData()->begin(); d != deployment->getDeploymentData()->end(); ++d)
 	{
 		std::string alienName = race->getMember((*d).alienRank);
 
@@ -578,7 +578,7 @@ void BattlescapeGenerator::deployAliens(const AlienRace *race, AlienDeployment *
 				outside = false;
 			Unit *rule = _game->getRuleset()->getUnit(alienName);
 			BattleUnit *unit = addAlien(rule, (*d).alienRank, outside);
-			for (std::vector<std::string>::iterator it = (*d).itemSets.at(_alienItemLevel).items.begin(); it != (*d).itemSets.at(_alienItemLevel).items.end(); ++it)
+			for (std::vector<std::string>::const_iterator it = (*d).itemSets.at(_alienItemLevel).items.begin(); it != (*d).itemSets.at(_alienItemLevel).items.end(); ++it)
 			{
 				RuleItem *ruleItem = _game->getRuleset()->getItem((*it));
 				if (ruleItem)
