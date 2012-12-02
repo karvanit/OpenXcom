@@ -28,7 +28,7 @@ namespace OpenXcom
  * @param rules Pointer to ruleset.
  * @param gen Generate new funding.
  */
-Country::Country(RuleCountry *rules, bool gen) : _rules(rules), _pact(false), _newPact(false), _funding(0), _satisfaction(2)
+Country::Country(const RuleCountry *rules, bool gen) : _rules(rules), _pact(false), _newPact(false), _funding(0), _satisfaction(2)
 {
 	if (gen)
 	{
@@ -78,7 +78,7 @@ void Country::save(YAML::Emitter &out) const
  * Returns the ruleset for the country's type.
  * @return Pointer to ruleset.
  */
-RuleCountry *Country::getRules() const
+const RuleCountry *Country::getRules() const
 {
 	return _rules;
 }

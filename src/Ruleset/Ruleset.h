@@ -108,7 +108,7 @@ public:
 	/// Gets the pool list for soldier names.
 	const std::vector<SoldierNamePool*> &getPools() const;
 	/// Gets the ruleset for a country type.
-	RuleCountry *getCountry(const std::string &id) const;
+	const RuleCountry *getCountry(const std::string &id) const;
 	/// Gets the available countries.
 	const std::vector<std::string> &getCountriesList() const;
 	/// Gets the ruleset for a region type.

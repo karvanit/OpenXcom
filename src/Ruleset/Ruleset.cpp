@@ -886,7 +886,7 @@ const std::vector<SoldierNamePool*> &Ruleset::getPools() const
  * @param id Country type.
  * @return Rules for the country.
  */
-RuleCountry *Ruleset::getCountry(const std::string &id) const
+const RuleCountry *Ruleset::getCountry(const std::string &id) const
 {
 	std::map<std::string, RuleCountry*>::const_iterator i = _countries.find(id);
 	if (_countries.end() != i) return i->second; else return 0;

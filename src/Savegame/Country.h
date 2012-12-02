@@ -34,13 +34,13 @@ class RuleCountry;
 class Country
 {
 private:
-	RuleCountry *_rules;
+	const RuleCountry *_rules;
 	bool _pact, _newPact;
 	std::vector<int> _funding, _activityXcom, _activityAlien;
 	int _satisfaction;
 public:
 	/// Creates a new country of the specified type.
-	Country(RuleCountry *rules, bool gen = true);
+	Country(const RuleCountry *rules, bool gen = true);
 	/// Cleans up the country.
 	~Country();
 	/// Loads the country from YAML.
@@ -48,7 +48,7 @@ public:
 	/// Saves the country to YAML.
 	void save(YAML::Emitter& out) const;
 	/// Gets the country's ruleset.
-	RuleCountry *getRules() const;
+	const RuleCountry *getRules() const;
 	/// Gets the country's funding.
 	const std::vector<int> &getFunding() const;
 	/// Sets the country's funding.
