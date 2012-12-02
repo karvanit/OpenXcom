@@ -102,7 +102,7 @@ private:
 	int _intelligence, _aggression;
 	SpecialAbility _specab;
 	std::string _zombieUnit, _spawnUnit;
-	Armor *_armor;
+	const Armor *_armor;
 	SoldierGender _gender;
 	std::string _activeHand;
 	Soldier *_geoscapeSoldier;
@@ -114,8 +114,8 @@ public:
 	static const int MAX_SOLDIER_ID = 1000000;
 	/// Creates a BattleUnit.
 	BattleUnit(Soldier *soldier, UnitFaction faction);
-	BattleUnit(Unit *unit, UnitFaction faction, int id, Armor *armor);
-	BattleUnit(BattleUnit&);
+	BattleUnit(Unit *unit, UnitFaction faction, int id, const Armor *armor);
+	BattleUnit(const BattleUnit&);
 	/// Cleans up the BattleUnit.
 	~BattleUnit();
 	/// Loads the unit from YAML.
@@ -311,7 +311,7 @@ public:
 	/// Get motion points for the motion scanner.
 	int getMotionPoints() const;
 	/// Gets the unit's armor.
-	Armor *getArmor() const;
+	const Armor *getArmor() const;
 	/// Gets the unit's name.
 	std::wstring getName(Language *lang, bool debugAppendId = false) const;
 	/// Gets the unit's stats.

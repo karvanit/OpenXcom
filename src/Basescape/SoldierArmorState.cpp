@@ -98,7 +98,7 @@ SoldierArmorState::SoldierArmorState(Game *game, Base *base, size_t soldier) : S
 	const std::vector<std::string> &armors = _game->getRuleset()->getArmorsList();
 	for (std::vector<std::string>::const_iterator i = armors.begin(); i != armors.end(); ++i)
 	{
-		Armor *a = _game->getRuleset()->getArmor(*i);
+		const Armor *a = _game->getRuleset()->getArmor(*i);
 		if (_base->getItems()->getItem(a->getStoreItem()) > 0)
 		{
 			_armors.push_back(a);

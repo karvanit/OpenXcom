@@ -75,7 +75,7 @@ public:
 	/// Get whether this is a normal or big unit.
 	int getSize() const;
 	/// Gets damage modifier.
-	float getDamageModifier(ItemDamageType dt);
+	float getDamageModifier(ItemDamageType dt) const;
 };
 
 }

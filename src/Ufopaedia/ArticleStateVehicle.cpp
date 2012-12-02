@@ -40,7 +40,7 @@ namespace OpenXcom
 	ArticleStateVehicle::ArticleStateVehicle(Game *game, ArticleDefinitionVehicle *defs, int palSwitch) : ArticleState(game, defs->id, palSwitch)
 	{
 		Unit *unit = _game->getRuleset()->getUnit(defs->id);
-		Armor *armor = _game->getRuleset()->getArmor(unit->getArmor());
+		const Armor *armor = _game->getRuleset()->getArmor(unit->getArmor());
 		RuleItem *item = _game->getRuleset()->getItem(defs->id);
 
 		// add screen elements

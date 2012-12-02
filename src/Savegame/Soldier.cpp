@@ -36,7 +36,7 @@ namespace OpenXcom
  * @param names List of name pools for soldier generation.
  * @param id Pointer to unique soldier id for soldier generation.
  */
-Soldier::Soldier(const RuleSoldier *rules, Armor *armor, const std::vector<SoldierNamePool*> *names, int id) : _name(L""), _id(0), _improvement(0), _rules(rules), _initialStats(), _currentStats(), _rank(RANK_ROOKIE), _craft(0), _gender(GENDER_MALE), _look(LOOK_BLONDE), _missions(0), _kills(0), _recovery(0), _recentlyPromoted(false), _psiTraining(false), _armor(armor), _equipmentLayout()
+Soldier::Soldier(const RuleSoldier *rules, const Armor *armor, const std::vector<SoldierNamePool*> *names, int id) : _name(L""), _id(0), _improvement(0), _rules(rules), _initialStats(), _currentStats(), _rank(RANK_ROOKIE), _craft(0), _gender(GENDER_MALE), _look(LOOK_BLONDE), _missions(0), _kills(0), _recovery(0), _recentlyPromoted(false), _psiTraining(false), _armor(armor), _equipmentLayout()
 {
 	if (names != 0)
 	{
@@ -380,7 +380,7 @@ bool Soldier::isPromoted()
  * Returns the unit's current armor.
  * @return Pointer to armor data.
  */
-Armor *Soldier::getArmor() const
+const Armor *Soldier::getArmor() const
 {
 	return _armor;
 }
@@ -389,7 +389,7 @@ Armor *Soldier::getArmor() const
  * Changes the unit's current armor.
  * @param armor Pointer to armor data.
  */
-void Soldier::setArmor(Armor *armor)
+void Soldier::setArmor(const Armor *armor)
 {
 	_armor = armor;
 }

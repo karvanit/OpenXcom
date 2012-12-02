@@ -1130,7 +1130,7 @@ const std::vector<std::string> &Ruleset::getDeploymentsList() const
  * @param name Armor name.
  * @return Rules for the armor.
  */
-Armor *Ruleset::getArmor(const std::string &name) const
+const Armor *Ruleset::getArmor(const std::string &name) const
 {
 	std::map<std::string, Armor*>::const_iterator i = _armors.find(name);
 	if (_armors.end() != i) return i->second; else return 0;

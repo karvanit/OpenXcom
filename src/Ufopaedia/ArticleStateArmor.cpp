@@ -39,7 +39,7 @@ namespace OpenXcom
 
 	ArticleStateArmor::ArticleStateArmor(Game *game, ArticleDefinitionArmor *defs, int palSwitch) : ArticleState(game, defs->id, palSwitch)
 	{
-		Armor *armor = _game->getRuleset()->getArmor(defs->id);
+		const Armor *armor = _game->getRuleset()->getArmor(defs->id);
 
 		// add screen elements
 		_txtTitle = new Text(300, 16, 5, 24);

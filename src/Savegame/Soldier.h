@@ -56,11 +56,11 @@ private:
 	SoldierLook _look;
 	int _missions, _kills, _recovery;
 	bool _recentlyPromoted, _psiTraining;
-	Armor *_armor;
+	const Armor *_armor;
 	std::vector<EquipmentLayoutItem*> _equipmentLayout;
 public:
 	/// Creates a new soldier.
-	Soldier(const RuleSoldier *rules, Armor *armor, const std::vector<SoldierNamePool*> *names = 0, int id = 0);
+	Soldier(const RuleSoldier *rules, const Armor *armor, const std::vector<SoldierNamePool*> *names = 0, int id = 0);
 	/// Cleans up the soldier.
 	~Soldier();
 	/// Loads the soldier from YAML.
@@ -108,9 +108,9 @@ public:
 	/// Get whether the unit was recently promoted.
 	bool isPromoted();
 	/// Gets the soldier armor.
-	Armor *getArmor() const;
+	const Armor *getArmor() const;
 	/// Sets the soldier armor.
-	void setArmor(Armor *armor);
+	void setArmor(const Armor *armor);
 	/// Gets the soldier's wound recovery time.
 	int getWoundRecovery() const;
 	/// Sets the soldier's wound recovery time.

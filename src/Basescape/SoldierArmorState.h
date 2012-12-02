@@ -46,7 +46,7 @@ private:
 	Window *_window;
 	Text *_txtTitle, *_txtSoldier, *_txtType, *_txtQuantity;
 	TextList *_lstArmor;
-	std::vector<Armor*> _armors;
+	std::vector<const Armor*> _armors;
 public:
 	/// Creates the Soldier Armor state.
 	SoldierArmorState(Game *game, Base *base, size_t soldier);

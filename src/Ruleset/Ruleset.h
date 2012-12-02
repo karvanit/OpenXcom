@@ -152,7 +152,7 @@ public:
 	/// Gets the available alien deployments.
 	const std::vector<std::string> &getDeploymentsList() const;
 	/// Gets armor rules.
-	Armor *getArmor(const std::string &name) const;
+	const Armor *getArmor(const std::string &name) const;
 	/// Gets the available armors.
 	const std::vector<std::string> &getArmorsList() const;
 	/// Gets Ufopaedia article definition.
