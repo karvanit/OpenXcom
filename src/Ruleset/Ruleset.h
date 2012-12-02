@@ -132,7 +132,7 @@ public:
 	/// Gets the available items.
 	const std::vector<std::string> &getItemsList() const;
 	/// Gets the ruleset for a UFO type.
-	RuleUfo *getUfo(const std::string &id) const;
+	const RuleUfo *getUfo(const std::string &id) const;
 	/// Gets the available UFOs.
 	const std::vector<std::string> &getUfosList() const;
 	/// Gets terrains for battlescape games.

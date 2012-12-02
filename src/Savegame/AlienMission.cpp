@@ -182,7 +182,7 @@ void AlienMission::think(Game &engine, const Globe &globe)
 		return;
 	}
 	const MissionWave &wave = _rule.getWave(_nextWave);
-	RuleUfo &ufoRule = *ruleset.getUfo(wave.ufoType);
+	const RuleUfo &ufoRule = *ruleset.getUfo(wave.ufoType);
 	const UfoTrajectory &trajectory = *ruleset.getUfoTrajectory(wave.trajectory);
 	Ufo *ufo = spawnUfo(game, ruleset, globe, ufoRule, trajectory);
 	if (ufo)
@@ -258,7 +258,7 @@ Ufo *AlienMission::spawnUfo(const SavedGame &game, const Ruleset &ruleset, const
 			// Spawn a battleship straight for the XCOM base.
 			const RuleUfo &battleshipRule = *ruleset.getUfo("STR_BATTLESHIP");
 			const UfoTrajectory &assaultTrajectory = *ruleset.getUfoTrajectory("__RETALIATION_ASSAULT_RUN");
-			Ufo *ufo = new Ufo(const_cast<RuleUfo*>(&battleshipRule));
+			Ufo *ufo = new Ufo(&battleshipRule);
 			ufo->setMissionInfo(this, &assaultTrajectory);
 			std::pair<double, double> pos = regionRules.getRandomPoint(assaultTrajectory.getZone(0));
 			ufo->setAltitude(assaultTrajectory.getAltitude(0));
@@ -281,7 +281,7 @@ Ufo *AlienMission::spawnUfo(const SavedGame &game, const Ruleset &ruleset, const
 			return 0;
 		}
 		// Our destination is always an alien base.
-		Ufo *ufo = new Ufo(const_cast<RuleUfo*>(&ufoRule));
+		Ufo *ufo = new Ufo(&ufoRule);
 		ufo->setMissionInfo(this, &trajectory);
 		const RuleRegion &regionRules = *ruleset.getRegion(_region);
 		std::pair<double, double> pos = regionRules.getRandomPoint(trajectory.getZone(0));
@@ -314,7 +314,7 @@ Ufo *AlienMission::spawnUfo(const SavedGame &game, const Ruleset &ruleset, const
 		return ufo;
 	}
 	// Spawn according to sequence.
-	Ufo *ufo = new Ufo(const_cast<RuleUfo*>(&ufoRule));
+	Ufo *ufo = new Ufo(&ufoRule);
 	ufo->setMissionInfo(this, &trajectory);
 	const RuleRegion &regionRules = *ruleset.getRegion(_region);
 	std::pair<double, double> pos = regionRules.getRandomPoint(trajectory.getZone(0));

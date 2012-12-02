@@ -72,7 +72,7 @@ public:
 	/// Gets the UFO's score.
 	int getScore() const;
 	/// Sets the battlescape terrain data ruleset for this UFO
-	RuleTerrain *getBattlescapeTerrainData();
+	RuleTerrain *getBattlescapeTerrainData() const;
 	/// Get reload time of UFO weapon.
 	int getWeaponReload() const;
 	/// Get UFO escape time.

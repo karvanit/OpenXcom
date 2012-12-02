@@ -1014,7 +1014,7 @@ const std::vector<std::string> &Ruleset::getItemsList() const
  * @param id UFO type.
  * @return Rules for the UFO.
  */
-RuleUfo *Ruleset::getUfo(const std::string &id) const
+const RuleUfo *Ruleset::getUfo(const std::string &id) const
 {
 	std::map<std::string, RuleUfo*>::const_iterator i = _ufos.find(id);
 	if (_ufos.end() != i) return i->second; else return 0;

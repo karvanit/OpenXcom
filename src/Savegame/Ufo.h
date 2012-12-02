@@ -43,7 +43,7 @@ class Ufo : public MovingTarget
 public:
 	enum UfoStatus { FLYING, LANDED, CRASHED, DESTROYED };
 private:
-	RuleUfo *_rules;
+	const RuleUfo *_rules;
 	int _id, _damage;
 	std::string _direction, _altitude;
 	enum UfoStatus _status;
@@ -59,7 +59,7 @@ private:
 	void calculateSpeed();
 public:
 	/// Creates a UFO of the specified type.
-	Ufo(RuleUfo *rules);
+	Ufo(const RuleUfo *rules);
 	/// Cleans up the UFO.
 	~Ufo();
 	/// Loads the UFO from YAML.
@@ -69,7 +69,7 @@ public:
 	/// Saves the UFO's ID to YAML.
 	void saveId(YAML::Emitter& out) const;
 	/// Gets the UFO's ruleset.
-	RuleUfo *getRules() const;
+	const RuleUfo *getRules() const;
 	/// Gets the UFO's ID.
 	int getId() const;
 	/// Sets the UFO's ID.
