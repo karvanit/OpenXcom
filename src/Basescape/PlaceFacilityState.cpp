@@ -43,7 +43,7 @@ namespace OpenXcom
  * @param base Pointer to the base to get info from.
  * @param rule Pointer to the facility ruleset to build.
  */
-PlaceFacilityState::PlaceFacilityState(Game *game, Base *base, RuleBaseFacility *rule) : State(game), _base(base), _rule(rule)
+PlaceFacilityState::PlaceFacilityState(Game *game, Base *base, const RuleBaseFacility *rule) : State(game), _base(base), _rule(rule)
 {
 	_screen = false;
 
@@ -153,7 +153,10 @@ void PlaceFacilityState::viewClick(Action *)
 		_base->getFacilities()->push_back(fac);
 		if (Options::getBool("allowBuildingQueue"))
 		{
-			if (_view->isQueuedBuilding(_rule)) fac->setBuildTime(std::numeric_limits<int>::max());
+			if (_view->isQueuedBuilding(_rule))
+			{
+				fac->setBuildTime(std::numeric_limits<int>::max());
+			}
 			_view->reCalcQueuedBuildings();
 		}
 		_game->getSavedGame()->setFunds(_game->getSavedGame()->getFunds() - _rule->getBuildCost());

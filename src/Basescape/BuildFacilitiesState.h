@@ -41,7 +41,7 @@ class BuildFacilitiesState : public State
 protected:
 	Base *_base;
 	State *_state;
-	std::vector<RuleBaseFacility*> _facilities;
+	std::vector<const RuleBaseFacility*> _facilities;
 
 	TextButton *_btnOk;
 	Window *_window;

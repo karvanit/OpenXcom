@@ -181,7 +181,7 @@ void BaseView::setSelectable(int size)
  * @param rule Facility type.
  * @return True if placeable, False otherwise.
  */
-bool BaseView::isPlaceable(RuleBaseFacility *rule) const
+bool BaseView::isPlaceable(const RuleBaseFacility *rule) const
 {
 	// Check if square isn't occupied
 	for (int y = _gridY; y < _gridY + rule->getSize(); ++y)
@@ -221,7 +221,7 @@ bool BaseView::isPlaceable(RuleBaseFacility *rule) const
  * @param rule Facility type.
  * @return True if queued, False otherwise.
  */
-bool BaseView::isQueuedBuilding(RuleBaseFacility *rule) const
+bool BaseView::isQueuedBuilding(const RuleBaseFacility *rule) const
 {
 	for (int i = 0; i < rule->getSize(); ++i)
 	{
@@ -259,14 +259,26 @@ void BaseView::reCalcQueuedBuildings()
 			if ((*i)->getBuildTime() < (*min)->getBuildTime()) min=i;
 		BaseFacility* facility=(*min);
 		facilities.erase(min);
-		RuleBaseFacility *rule=facility->getRules();
+		const RuleBaseFacility *rule = facility->getRules();
 		int x=facility->getX(), y=facility->getY();
 		for (int i = 0; i < rule->getSize(); ++i)
 		{
-			if (x > 0) updateNeighborFacilityBuildTime(facility,_facilities[x - 1][y + i]);
-			if (y > 0) updateNeighborFacilityBuildTime(facility,_facilities[x + i][y - 1]);
-			if (x + rule->getSize() < BASE_SIZE) updateNeighborFacilityBuildTime(facility,_facilities[x + rule->getSize()][y + i]);
-			if (y + rule->getSize() < BASE_SIZE) updateNeighborFacilityBuildTime(facility,_facilities[x + i][y + rule->getSize()]);
+			if (x > 0)
+			{
+				updateNeighborFacilityBuildTime(facility,_facilities[x - 1][y + i]);
+			}
+			if (y > 0)
+			{
+				updateNeighborFacilityBuildTime(facility,_facilities[x + i][y - 1]);
+			}
+			if (x + rule->getSize() < BASE_SIZE)
+			{
+				updateNeighborFacilityBuildTime(facility,_facilities[x + rule->getSize()][y + i]);
+			}
+			if (y + rule->getSize() < BASE_SIZE)
+			{
+				updateNeighborFacilityBuildTime(facility,_facilities[x + i][y + rule->getSize()]);
+			}
 		}
 	}
 }

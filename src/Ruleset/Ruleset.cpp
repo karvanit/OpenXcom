@@ -928,7 +928,7 @@ const std::vector<std::string> &Ruleset::getRegionsList() const
  * @param id Facility type.
  * @return Rules for the facility.
  */
-RuleBaseFacility *Ruleset::getBaseFacility(const std::string &id) const
+const RuleBaseFacility *Ruleset::getBaseFacility(const std::string &id) const
 {
 	std::map<std::string, RuleBaseFacility*>::const_iterator i = _facilities.find(id);
 	if (_facilities.end() != i) return i->second; else return 0;
@@ -1273,10 +1273,10 @@ const std::vector<std::string> &Ruleset::getManufactureList () const
  * part of the ruleset.
  * @return The list of facilities for custom bases.
  */
-std::vector<OpenXcom::RuleBaseFacility*> Ruleset::getCustomBaseFacilities() const
+std::vector<const OpenXcom::RuleBaseFacility*> Ruleset::getCustomBaseFacilities() const
 {
 	const YAML::Node &node = *_startingBase->begin();
-	std::vector<OpenXcom::RuleBaseFacility*> PlaceList;
+	std::vector<const OpenXcom::RuleBaseFacility*> PlaceList;
 
 	for (YAML::Iterator i = node["facilities"].begin(); i != node["facilities"].end(); ++i)
 	{

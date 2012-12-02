@@ -36,7 +36,7 @@ private:
 	Globe *_globe;
 public:
 	/// Creates the Build Facilities state.
-	SelectStartFacilityState(Game *game, Base *base, State *state, Globe *globe, std::vector<RuleBaseFacility*> Facilities);
+	SelectStartFacilityState(Game *game, Base *base, State *state, Globe *globe, const std::vector<const RuleBaseFacility*> &Facilities);
 	/// Cleans up the Build Facilities state.
 	~SelectStartFacilityState();
 	/// Populate the build option list

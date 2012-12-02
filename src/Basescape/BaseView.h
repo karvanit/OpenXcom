@@ -72,9 +72,9 @@ public:
 	/// Sets whether the base view is selectable.
 	void setSelectable(int size);
 	/// Checks if a facility can be placed.
-	bool isPlaceable(RuleBaseFacility *rule) const;
+	bool isPlaceable(const RuleBaseFacility *rule) const;
 	/// Checks if the placed facility is placed in queue or not.
-	bool isQueuedBuilding(RuleBaseFacility *rule) const;
+	bool isQueuedBuilding(const RuleBaseFacility *rule) const;
 	/// ReCalculates the remaining build-time of all queued buildings.
 	void reCalcQueuedBuildings();
 	/// Counts the squares connected to a grid position.

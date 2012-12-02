@@ -40,7 +40,7 @@ namespace OpenXcom
  * @param base Pointer to the base to get info from.
  * @param state Pointer to the base state to refresh.
  */
-	SelectStartFacilityState::SelectStartFacilityState(Game *game, Base *base, State *state, Globe *globe, std::vector<RuleBaseFacility*> Facilities) : BuildFacilitiesState(game, base, state, false), _globe(globe)
+SelectStartFacilityState::SelectStartFacilityState(Game *game, Base *base, State *state, Globe *globe, const std::vector<const RuleBaseFacility*> &Facilities) : BuildFacilitiesState(game, base, state, false), _globe(globe)
 {
 	_facilities = Facilities;
 	_lstFacilities->onMouseClick((ActionHandler)&SelectStartFacilityState::lstFacilitiesClick);
@@ -61,7 +61,7 @@ SelectStartFacilityState::~SelectStartFacilityState()
 void SelectStartFacilityState::PopulateBuildList()
 {
 	_lstFacilities->clearList();
-	for (std::vector<RuleBaseFacility*>::iterator i = _facilities.begin(); i != _facilities.end(); ++i)
+	for (std::vector<const RuleBaseFacility*>::const_iterator i = _facilities.begin(); i != _facilities.end(); ++i)
 	{
 		_lstFacilities->addRow(1, _game->getLanguage()->getString((*i)->getType()).c_str());
 	}

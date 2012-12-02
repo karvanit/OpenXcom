@@ -116,7 +116,7 @@ public:
 	/// Gets the available regions.
 	const std::vector<std::string> &getRegionsList() const;
 	/// Gets the ruleset for a facility type.
-	RuleBaseFacility *getBaseFacility(const std::string &id) const;
+	const RuleBaseFacility *getBaseFacility(const std::string &id) const;
 	/// Gets the available facilities.
 	const std::vector<std::string> &getBaseFacilitiesList() const;
 	/// Gets the ruleset for a craft type.
@@ -180,7 +180,7 @@ public:
 	/// Get the list of all manufacture projects.
 	const std::vector<std::string> &getManufactureList () const;
 	/// Get facilities for custom bases.
-	std::vector<OpenXcom::RuleBaseFacility*> getCustomBaseFacilities() const;
+	std::vector<const OpenXcom::RuleBaseFacility*> getCustomBaseFacilities() const;
 	/// Gets a specific UfoTrajectory.
 	const UfoTrajectory *getUfoTrajectory(const std::string &id) const;
 	/// Gets the ruleset for a specific alien mission.

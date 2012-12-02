@@ -39,7 +39,7 @@ namespace OpenXcom
 
 	ArticleStateBaseFacility::ArticleStateBaseFacility(Game *game, ArticleDefinitionBaseFacility *defs, int palSwitch) : ArticleState(game, defs->id, palSwitch)
 	{
-		RuleBaseFacility *facility = _game->getRuleset()->getBaseFacility(defs->id);
+		const RuleBaseFacility *facility = _game->getRuleset()->getBaseFacility(defs->id);
 
 		// add screen elements
 		_txtTitle = new Text(200, 16, 10, 24);

@@ -28,7 +28,7 @@ namespace OpenXcom
  * @param rules Pointer to ruleset.
  * @param base Pointer to base of origin.
  */
-BaseFacility::BaseFacility(RuleBaseFacility *rules, Base *base) : _rules(rules), _base(base), _x(-1), _y(-1), _buildTime(0)
+BaseFacility::BaseFacility(const RuleBaseFacility *rules, Base *base) : _rules(rules), _base(base), _x(-1), _y(-1), _buildTime(0)
 {
 }
 
@@ -68,7 +68,7 @@ void BaseFacility::save(YAML::Emitter &out) const
  * Returns the ruleset for the base facility's type.
  * @return Pointer to ruleset.
  */
-RuleBaseFacility *BaseFacility::getRules() const
+const RuleBaseFacility *BaseFacility::getRules() const
 {
 	return _rules;
 }

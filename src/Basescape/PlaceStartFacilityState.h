@@ -39,7 +39,7 @@ private:
 
 public:
 	/// Creates the Place Facility state.
-	PlaceStartFacilityState(Game *game, Base *base, SelectStartFacilityState *select, RuleBaseFacility *rule);
+	PlaceStartFacilityState(Game *game, Base *base, SelectStartFacilityState *select, const RuleBaseFacility *rule);
 	/// Cleans up the Place Facility state.
 	~PlaceStartFacilityState();
 	/// Handler for clicking the base view.

@@ -108,12 +108,12 @@ void BuildFacilitiesState::PopulateBuildList()
 	const std::vector<std::string> &facilities = _game->getRuleset()->getBaseFacilitiesList();
 	for (std::vector<std::string>::const_iterator i = facilities.begin(); i != facilities.end(); ++i)
 	{
-		RuleBaseFacility *rule = _game->getRuleset()->getBaseFacility(*i);
+		const RuleBaseFacility *rule = _game->getRuleset()->getBaseFacility(*i);
 		if (_game->getSavedGame()->isResearched(rule->getRequirements()) && !rule->isLift())
 			_facilities.push_back(rule);
 	}
 
-	for (std::vector<RuleBaseFacility*>::iterator i = _facilities.begin(); i != _facilities.end(); ++i)
+	for (std::vector<const RuleBaseFacility*>::const_iterator i = _facilities.begin(); i != _facilities.end(); ++i)
 	{
 		_lstFacilities->addRow(1, _game->getLanguage()->getString((*i)->getType()).c_str());
 	}
