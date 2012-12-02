@@ -232,7 +232,7 @@ bool RuleRegion::insideRegion(double lon, double lat) const
  * Returns the list of cities contained.
  * @return Pointer to list.
  */
-std::vector<City*> *RuleRegion::getCities()
+const std::vector<City*> *RuleRegion::getCities() const
 {
 	return &_cities;
 }

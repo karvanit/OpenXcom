@@ -26,7 +26,7 @@ namespace OpenXcom
  * Initializes a region of the specified type.
  * @param rules Pointer to ruleset.
  */
-Region::Region(RuleRegion *rules): _rules(rules)
+Region::Region(const RuleRegion *rules): _rules(rules)
 {
 	_activityAlien.push_back(0);
 	_activityXcom.push_back(0);
@@ -66,7 +66,7 @@ void Region::save(YAML::Emitter &out) const
  * Returns the ruleset for the region's type.
  * @return Pointer to ruleset.
  */
-RuleRegion *Region::getRules() const
+const RuleRegion *Region::getRules() const
 {
 	return _rules;
 }

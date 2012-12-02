@@ -1940,7 +1940,7 @@ void GeoscapeState::determineAlienMissions(bool atGameStart)
 	//
 
 	//Determine a random region with at least one city.
-	RuleRegion* region = 0;
+	const RuleRegion* region = 0;
 	std::vector<std::string> regions = _game->getRuleset()->getRegionsList();
 	do
 	{

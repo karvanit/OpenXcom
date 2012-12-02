@@ -35,11 +35,11 @@ class RuleRegion;
 class Region
 {
 private:
-	RuleRegion *_rules;
+	const RuleRegion *_rules;
 	std::vector<int> _activityXcom, _activityAlien;
 public:
 	/// Creates a new region of the specified type.
-	Region(RuleRegion *rules);
+	Region(const RuleRegion *rules);
 	/// Cleans up the region.
 	~Region();
 	/// Loads the region from YAML.
@@ -47,7 +47,7 @@ public:
 	/// Saves the region to YAML.
 	void save(YAML::Emitter& out) const;
 	/// Gets the region's ruleset.
-	RuleRegion *getRules() const;
+	const RuleRegion *getRules() const;
 	/// add xcom activity in this region
 	void addActivityXcom(int activity);
 	/// add alien activity in this region

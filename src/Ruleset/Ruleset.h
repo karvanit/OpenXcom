@@ -112,7 +112,7 @@ public:
 	/// Gets the available countries.
 	const std::vector<std::string> &getCountriesList() const;
 	/// Gets the ruleset for a region type.
-	RuleRegion *getRegion(const std::string &id) const;
+	const RuleRegion *getRegion(const std::string &id) const;
 	/// Gets the available regions.
 	const std::vector<std::string> &getRegionsList() const;
 	/// Gets the ruleset for a facility type.

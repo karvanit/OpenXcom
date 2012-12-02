@@ -1396,7 +1396,7 @@ void Globe::drawDetail()
 		Sint16 x, y;
 		for (std::vector<Region*>::iterator i = _game->getSavedGame()->getRegions()->begin(); i != _game->getSavedGame()->getRegions()->end(); ++i)
 		{
-			for (std::vector<City*>::iterator j = (*i)->getRules()->getCities()->begin(); j != (*i)->getRules()->getCities()->end(); ++j)
+			for (std::vector<City*>::const_iterator j = (*i)->getRules()->getCities()->begin(); j != (*i)->getRules()->getCities()->end(); ++j)
 			{
 				// Don't draw if city is facing back
 				if (pointBack((*j)->getLongitude(), (*j)->getLatitude()))

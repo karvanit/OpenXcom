@@ -907,7 +907,7 @@ const std::vector<std::string> &Ruleset::getCountriesList() const
  * @param id Region type.
  * @return Rules for the region.
  */
-RuleRegion *Ruleset::getRegion(const std::string &id) const
+const RuleRegion *Ruleset::getRegion(const std::string &id) const
 {
 	std::map<std::string, RuleRegion*>::const_iterator i = _regions.find(id);
 	if (_regions.end() != i) return i->second; else return 0;

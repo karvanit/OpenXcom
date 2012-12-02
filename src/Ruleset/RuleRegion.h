@@ -62,7 +62,7 @@ public:
 	/// Checks if a point is inside the region.
 	bool insideRegion(double lon, double lat) const;
 	/// Gets the cities in this region.
-	std::vector<City*> *getCities();
+	const std::vector<City*> *getCities() const;
 	/// Gets the weight of this region for mission selection.
 	unsigned getWeight() const;
 	/// Gets the weighted list of missions for this region.

@@ -392,7 +392,7 @@ void AlienMission::ufoReachedWaypoint(Ufo &ufo, Game &engine, const Globe &globe
 		ufo.setTrajectoryPoint(ufo.getTrajectoryPoint() + 1);
 		// Set next waypoint.
 		Waypoint *wp = new Waypoint();
-		RuleRegion *region = rules.getRegion(_region);
+		const RuleRegion *region = rules.getRegion(_region);
 		ufo.setSpeed((int)(ufo.getRules()->getMaxSpeed() * ufo.getTrajectory().getSpeedPercentage(ufo.getTrajectoryPoint())));
 		std::pair<double, double> pos;
 		if (ufo.getTrajectory().getAltitude(ufo.getTrajectoryPoint()) == "STR_GROUND")
@@ -506,7 +506,7 @@ void AlienMission::ufoLifting(Ufo &ufo, Game &engine, const Globe &globe)
 			ufo.setAltitude("STR_VERY_LOW");
 			// Set next waypoint.
 			Waypoint *wp = new Waypoint();
-			RuleRegion *region = rules.getRegion(_region);
+			const RuleRegion *region = rules.getRegion(_region);
 			std::pair<double, double> pos;
 			if (ufo.getTrajectory().getAltitude(ufo.getTrajectoryPoint() + 1) == "STR_GROUND")
 			{
