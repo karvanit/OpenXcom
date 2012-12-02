@@ -1088,7 +1088,7 @@ Unit *Ruleset::getUnit(const std::string &name) const
  * @param name Race name.
  * @return Rules for the race.
  */
-AlienRace *Ruleset::getAlienRace(const std::string &name) const
+const AlienRace *Ruleset::getAlienRace(const std::string &name) const
 {
 	std::map<std::string, AlienRace*>::const_iterator i = _alienRaces.find(name);
 	if (_alienRaces.end() != i) return i->second; else return 0;

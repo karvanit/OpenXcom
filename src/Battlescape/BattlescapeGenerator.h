@@ -88,7 +88,7 @@ private:
 	void loadRMP(MapBlock *mapblock, int xoff, int yoff, int segment);
 	void fuelPowerSources();
 	void explodePowerSources();
-	void deployAliens(AlienRace *race, AlienDeployment *deployment);
+	void deployAliens(const AlienRace *race, AlienDeployment *deployment);
 	void deployCivilians(int max);
 public:
 	/// Creates a new BattlescapeGenerator class

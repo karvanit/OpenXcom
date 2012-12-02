@@ -144,7 +144,7 @@ public:
 	/// Gets generated unit rules.
 	Unit *getUnit(const std::string &name) const;
 	/// Gets alien race rules.
-	AlienRace *getAlienRace(const std::string &name) const;
+	const AlienRace *getAlienRace(const std::string &name) const;
 	/// Gets the available alien races.
 	const std::vector<std::string> &getAlienRacesList() const;
 	/// Gets deployment rules.

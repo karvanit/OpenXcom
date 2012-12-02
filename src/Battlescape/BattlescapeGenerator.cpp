@@ -559,7 +559,7 @@ BattleUnit *BattlescapeGenerator::addXCOMUnit(BattleUnit *unit)
  * @param race Pointer to the alien race.
  * @param deployment Pointer to the deployment rules.
  */
-void BattlescapeGenerator::deployAliens(AlienRace *race, AlienDeployment *deployment)
+void BattlescapeGenerator::deployAliens(const AlienRace *race, AlienDeployment *deployment)
 {
 	for (std::vector<DeploymentData>::iterator d = deployment->getDeploymentData()->begin(); d != deployment->getDeploymentData()->end(); ++d)
 	{
