@@ -48,7 +48,7 @@ class Soldier
 private:
 	std::wstring _name;
 	int _id, _improvement;
-	RuleSoldier *_rules;
+	const RuleSoldier *_rules;
 	UnitStats _initialStats, _currentStats;
 	SoldierRank _rank;
 	Craft *_craft;
@@ -60,7 +60,7 @@ private:
 	std::vector<EquipmentLayoutItem*> _equipmentLayout;
 public:
 	/// Creates a new soldier.
-	Soldier(RuleSoldier *rules, Armor *armor, const std::vector<SoldierNamePool*> *names = 0, int id = 0);
+	Soldier(const RuleSoldier *rules, Armor *armor, const std::vector<SoldierNamePool*> *names = 0, int id = 0);
 	/// Cleans up the soldier.
 	~Soldier();
 	/// Loads the soldier from YAML.
@@ -94,7 +94,7 @@ public:
 	/// Gets the soldier's look.
 	SoldierLook getLook() const;
 	/// Gets soldier rules.
-	RuleSoldier *getRules() const;
+	const RuleSoldier *getRules() const;
 	/// Gets the soldier's unique ID.
 	int getId() const;
 	/// Add a mission to the counter.

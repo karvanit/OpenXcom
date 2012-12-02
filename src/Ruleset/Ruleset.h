@@ -140,7 +140,7 @@ public:
 	/// Gets mapdatafile for battlescape games.
 	MapDataSet *getMapDataSet(const std::string &name);
 	/// Gets soldier unit rules.
-	RuleSoldier *getSoldier(const std::string &name) const;
+	const RuleSoldier *getSoldier(const std::string &name) const;
 	/// Gets generated unit rules.
 	Unit *getUnit(const std::string &name) const;
 	/// Gets alien race rules.

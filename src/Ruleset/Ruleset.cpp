@@ -1066,7 +1066,7 @@ MapDataSet *Ruleset::getMapDataSet(const std::string &name)
  * @param name Unit name.
  * @return Rules for the units.
  */
-RuleSoldier *Ruleset::getSoldier(const std::string &name) const
+const RuleSoldier *Ruleset::getSoldier(const std::string &name) const
 {
 	std::map<std::string, RuleSoldier*>::const_iterator i = _soldiers.find(name);
 	if (_soldiers.end() != i) return i->second; else return 0;
